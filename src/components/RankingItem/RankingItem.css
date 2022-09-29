@@ -1,0 +1,18 @@
+tr.ranking-item {
+  background-color: #F5F5F5;
+  border-radius: 10px;
+}
+tr.ranking-item td {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+tr.ranking-item td p {
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+}
+tr.ranking-item td img {
+  height: 50px;
+  width: 50px;
+}

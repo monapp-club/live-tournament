@@ -1,0 +1,17 @@
+.tag-label {
+  background-color: #D9D9D9;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.tag-label p {
+  color: #000000;
+  text-transform: uppercase;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: bold;
+  margin-block: unset;
+}

@@ -1,0 +1,18 @@
+ul li {
+  display: inline;
+  margin: 0 10px;
+}
+ul li a {
+  color: #D9D9D9;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: "Roboto Condensed";
+}
+ul li a:hover {
+  color: #D9D9D9;
+}
+ul li.active a {
+  color: #238ACC;
+}

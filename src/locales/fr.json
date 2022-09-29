@@ -1,0 +1,20 @@
+{
+  "navigation": {
+    "ranking": {
+      "title": "Classement",
+      "url": "classement"
+    },
+    "games": {
+      "title": "Matchs",
+      "url": "matchs"
+    },
+    "fields": {
+      "title": "Terrains",
+      "url": "terrains"
+    },
+    "playOff": {
+      "title": "Phases finales",
+      "url": "phases-finales"
+    }
+  }
+}

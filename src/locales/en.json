@@ -1,0 +1,20 @@
+{
+  "navigation": {
+    "ranking": {
+      "title": "Ranking",
+      "url": "ranking"
+    },
+    "games": {
+      "title": "Games",
+      "url": "games"
+    },
+    "fields": {
+      "title": "Fields",
+      "url": "fields"
+    },
+    "playOff": {
+      "title": "Play Off",
+      "url": "play-off"
+    }
+  }
+}
