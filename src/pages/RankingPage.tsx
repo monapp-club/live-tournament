@@ -1,15 +1,14 @@
-import pools from "../api/pools";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPools } from "../api/airtable";
 import Header from "../components/Header/Header";
-import PoolRanking from "../components/PoolRanking/PoolRanking";
-import TagLabel from "../components/TagLabel/TagLabel";
+import PoolRankingGrid from "../components/PoolRankingGrid/PoolRankingGrid";
 
 const RankingPage = () => {
+  const { data } = useQuery(["pools"], fetchPools);
   return (
     <div>
       <Header />
-      <h1>Classement</h1>
-      <TagLabel>{"Poule 1"}</TagLabel>
-      <PoolRanking pool={pools[0]} />
+      <PoolRankingGrid pools={data} />
     </div>
   );
 };

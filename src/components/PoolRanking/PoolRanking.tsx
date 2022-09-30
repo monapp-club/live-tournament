@@ -1,8 +1,9 @@
-import { Pool } from "../../types";
+import { PoolType } from "../../types";
 import RankingItem from "../RankingItem/RankingItem";
+import "./PoolRanking.css";
 
 interface PoolRankingProps {
-  pool: Pool;
+  pool: PoolType;
 }
 
 const PoolRanking = ({ pool }: PoolRankingProps) => {

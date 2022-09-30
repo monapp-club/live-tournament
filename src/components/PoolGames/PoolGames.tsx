@@ -1,16 +1,16 @@
-import { Pool } from "../../types";
+import { PoolType } from "../../types";
 import GameItem from "../GameItem/GameItem";
 
 interface PoolGamesProps {
-  pool: Pool;
+  pool: PoolType;
 }
 
 const PoolGames = ({ pool }: PoolGamesProps) => {
   return (
     <div>
-      {pool.games.map((game) => (
+      {/* {pool.games.map((game) => (
         <GameItem game={game} />
-      ))}
+      ))} */}
     </div>
   );
 };

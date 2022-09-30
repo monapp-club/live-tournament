@@ -1,31 +1,16 @@
-export type Team = {
-  id: string;
-  name: string;
-  logo: string;
-};
-
-export type TeamRanking = Team & {
-  ranking: number;
-  points: number;
-  wins: number;
-  losses: number;
-};
+import { TeamsFieldsType } from "../api/types";
 
 export type Game = {
   id: string;
-  homeTeam: Team;
-  awayTeam: Team;
+  homeTeam: TeamsFieldsType;
+  awayTeam: TeamsFieldsType;
   homeScore: number;
   awayScore: number;
   date: string;
 };
 
-export type Pool = {
+export type PoolType = {
   id: string;
   name: string;
-  description: string;
-  createdAt: string;
-  updatedAt: string;
-  ranking: TeamRanking[];
-  games: Game[];
+  ranking: TeamsFieldsType[];
 };
