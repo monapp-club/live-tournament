@@ -1,5 +1,10 @@
 {
   "navigation": {
+    "header": {
+      "selector": {
+        "pool": "Toutes les poules"
+      }
+    },
     "ranking": {
       "title": "Classement",
       "url": "classement"
@@ -15,6 +20,17 @@
     "playOff": {
       "title": "Phases finales",
       "url": "phases-finales"
+    }
+  },
+  "games": {
+    "status": {
+      "upcoming": "À venir",
+      "live": "En cours",
+      "done": "Terminé"
+    },
+    "half_time": {
+      "first": "1ère mi-temps",
+      "second": "2ème mi-temps"
     }
   }
 }

@@ -1,16 +1,25 @@
-import { TeamsFieldsType } from "../api/types";
+import {
+  CategoryEnumType,
+  GameFieldsType,
+  TeamsFieldsType,
+} from "../api/types";
 
-export type Game = {
-  id: string;
-  homeTeam: TeamsFieldsType;
-  awayTeam: TeamsFieldsType;
-  homeScore: number;
-  awayScore: number;
-  date: string;
-};
-
-export type PoolType = {
+export type PoolRankingType = {
   id: string;
   name: string;
   ranking: TeamsFieldsType[];
+};
+
+export type CategoryPoolRankingType = {
+  [key in CategoryEnumType]?: PoolRankingType[];
+};
+
+export type PoolGamesType = {
+  id: string;
+  name: string;
+  games: GameFieldsType[];
+};
+
+export type CategoryPoolGameType = {
+  [key in CategoryEnumType]?: PoolGamesType[];
 };

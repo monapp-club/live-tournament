@@ -1,8 +1,16 @@
-import { PoolType } from "../types";
+import {
+  CategoryPoolGameType,
+  CategoryPoolRankingType,
+  PoolGamesType,
+  PoolRankingType,
+} from "../types";
+import { groupBy } from "../utils";
 import {
   AirtableRecordType,
   AirtableTableType,
   AirtableViewType,
+  CategoryEnumType,
+  GameFieldsType,
   TeamsFieldsType,
 } from "./types";
 
@@ -41,29 +49,63 @@ const fetchAirtableRecords = async <T>(
   }
 };
 
-export const fetchPools = async (): Promise<PoolType[] | undefined> => {
+export const fetchRankingByCategories = async (): Promise<
+  CategoryPoolRankingType | undefined
+> => {
   try {
     const data = await fetchAirtableRecords<
       AirtableRecordType<TeamsFieldsType>
     >("teams", "list");
     if (data) {
-      const pools = data.reduce<PoolType[]>((acc, record) => {
-        const { fields } = record;
-        if (fields.pool) {
-          const pool = acc.find((p) => p.id === fields.pool);
-          if (pool) {
-            pool.ranking.push(fields);
-          } else {
-            acc.push({
-              id: fields.pool,
-              name: fields.pool,
-              ranking: [fields],
-            });
-          }
-        }
-        return acc;
-      }, []);
-      return pools;
+      const categories = groupBy(data, (team) => team.fields.category);
+      const poolsByCategories = Object.keys(
+        categories
+      ).reduce<CategoryPoolRankingType>((acc, category) => {
+        const pools = groupBy(categories[category], (team) => team.fields.pool);
+        const poolsArray: PoolRankingType[] = Object.keys(pools).map(
+          (pool) => ({
+            id: pool,
+            name: pool,
+            ranking: pools[pool].map((team) => team.fields),
+          })
+        );
+        return {
+          ...acc,
+          [category]: poolsArray,
+        };
+      }, {});
+      return poolsByCategories;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchGamesByCategories = async (): Promise<
+  CategoryPoolGameType | undefined
+> => {
+  try {
+    const data = await fetchAirtableRecords<AirtableRecordType<GameFieldsType>>(
+      "games",
+      "list"
+    );
+    if (data) {
+      const categories = groupBy(data, (game) => game.fields.category);
+      const poolsByCategories = Object.keys(
+        categories
+      ).reduce<CategoryPoolGameType>((acc, category) => {
+        const pools = groupBy(categories[category], (game) => game.fields.pool);
+        const poolsArray: PoolGamesType[] = Object.keys(pools).map((pool) => ({
+          id: pool,
+          name: pool,
+          games: pools[pool].map((game) => game.fields),
+        }));
+        return {
+          ...acc,
+          [category]: poolsArray,
+        };
+      }, {});
+      return poolsByCategories;
     }
   } catch (error) {
     console.log(error);

@@ -1,4 +1,9 @@
 {
+  "header": {
+    "selector": {
+      "pool": "All pools"
+    }
+  },
   "navigation": {
     "ranking": {
       "title": "Ranking",
@@ -15,6 +20,17 @@
     "playOff": {
       "title": "Play Off",
       "url": "play-off"
+    }
+  },
+  "games": {
+    "status": {
+      "upcoming": "Upcoming",
+      "live": "Live",
+      "done": "Done"
+    },
+    "half_time": {
+      "first": "First Half",
+      "second": "Second Half"
     }
   }
 }
