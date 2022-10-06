@@ -9,7 +9,6 @@ import {
   AirtableRecordType,
   AirtableTableType,
   AirtableViewType,
-  CategoryEnumType,
   GameFieldsType,
   TeamsFieldsType,
 } from "./types";

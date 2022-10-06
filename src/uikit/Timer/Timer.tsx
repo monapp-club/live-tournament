@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TimerProps {
   dateTime: string;
@@ -19,7 +19,7 @@ const Timer = ({ dateTime }: TimerProps) => {
     const interval = setInterval(() => getTime(), 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  });
 
   if (minutes === 0 && seconds === 0) {
     return null;
