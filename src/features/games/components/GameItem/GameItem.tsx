@@ -1,9 +1,9 @@
 import dayjs from "dayjs";
 import frLocale from "dayjs/locale/fr";
 import { GameFieldsType } from "../../../../api/types";
-import i18n from "../../../../i18n";
 import { classNames } from "../../../../utils";
 import Timer from "../../../../uikit/Timer/Timer";
+import { useTranslation } from "react-i18next";
 
 dayjs.locale(frLocale);
 
@@ -23,9 +23,10 @@ const isTeamIsWinner = (game: GameFieldsType, team?: string) => {
 };
 
 const GameItem = ({ game }: GameItemProps) => {
+  const { t } = useTranslation();
   return (
     <tr>
-      <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm sm:pl-6">
+      <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-6">
         <div className="flex items-center">
           <div className="flex-shrink-0 flex flex-row">
             <img
@@ -72,20 +73,17 @@ const GameItem = ({ game }: GameItemProps) => {
               game.status === "live" ? "bg-red-100" : "bg-gray-100"
             )}
           >
-            {/** @ts-ignore */}
-            {i18n.t(`games:status:${game.status}`)}
+            {t(`games:status:${game.status}`)}
           </span>
           {game.status === "live" && <Timer dateTime={game.date} />}
         </div>
         {game.status === "live" && (
-          <p>
-            {/** @ts-ignore */}
-            {i18n.t(`games:half_time:${game.half_time}`)}
-          </p>
+          <p>{t(`games:half_time:${game.half_time}`)}</p>
         )}
         {game.status === "upcoming" && (
           <p>{dayjs(game.date).format("ddd DD MMM HH:mm")}</p>
         )}
+        <p>{game.field_name}</p>
       </td>
       <td className="relative whitespace-nowrap  pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
         <td className="whitespace-nowrap px-3  text-sm">

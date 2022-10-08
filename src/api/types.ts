@@ -40,6 +40,7 @@ export type GameFieldsType = {
   away_score: number;
   status: "live" | "upcoming" | "done";
   half_time: "first" | "second";
+  field_name: [string];
   home_team_name?: [string];
   home_team_logo?: [string];
   away_team_logo?: [string];
