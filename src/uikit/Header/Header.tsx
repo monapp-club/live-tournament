@@ -2,7 +2,6 @@ import { Disclosure } from "@headlessui/react";
 import { classNames, isCurrentPath } from "../../utils";
 import { getRoutes } from "../../config/router";
 import { Link } from "react-router-dom";
-import ButtonsGroup from "../ButtonsGroup/ButtonsGroup";
 import { useContext } from "react";
 import { RootContext } from "../../providers/RootProvider";
 import { CategoryEnumType } from "../../api/types";
@@ -23,6 +22,8 @@ const Header = () => {
   const poolTabs =
     categories?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) ||
     [];
+
+  const isRankingPage = isCurrentPath("/");
 
   return (
     <>
@@ -66,18 +67,24 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="flex flex-row">
-                    {categoryTabs.length > 0 && (
-                      <div className="border-t border-gray-200 pt-4 pb-3 pr-2">
-                        <ButtonsGroup
-                          options={categoryTabs}
+                    {categoryTabs?.length > 0 && (
+                      <div className="border-t border-gray-200 pt-4 pb-3">
+                        <SelectDropdown
+                          options={[
+                            i18n.t("navigation:header:selector:category"),
+                            ...categoryTabs,
+                          ]}
                           onSelect={(value) =>
                             setSelectedCategory(value as CategoryEnumType)
                           }
                           selected={selectedCategory}
+                          placeholder={i18n.t(
+                            "navigation:header:selector:category"
+                          )}
                         />
                       </div>
                     )}
-                    {poolTabs?.length > 0 && (
+                    {poolTabs?.length > 0 && !isRankingPage && (
                       <div className="border-t border-gray-200 pt-4 pb-3">
                         <SelectDropdown
                           options={[
@@ -86,7 +93,9 @@ const Header = () => {
                           ]}
                           onSelect={setSelectedPool}
                           selected={selectedPool}
-                          placeholder="Select Pool"
+                          placeholder={i18n.t(
+                            "navigation:header:selector:pool"
+                          )}
                         />
                       </div>
                     )}

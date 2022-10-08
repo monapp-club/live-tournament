@@ -16,12 +16,12 @@ import {
 const config = {
   base: process.env.REACT_APP_AIRTABLE_BASE,
   apiKey: process.env.REACT_APP_AIRTABLE_API_KEY,
-  maxRecords: process.env.REACT_APP_AIRTABLE_MAX_RECORDS,
+  // maxRecords: process.env.REACT_APP_AIRTABLE_MAX_RECORDS,
 };
 
 const getRequest = (table: AirtableTableType, view: AirtableViewType) =>
   new Request(
-    `https://api.airtable.com/v0/${config.base}/${table}?maxRecords=${config.maxRecords}&view=${view}`,
+    `https://api.airtable.com/v0/${config.base}/${table}?view=${view}`,
     {
       method: "get",
       headers: new Headers({

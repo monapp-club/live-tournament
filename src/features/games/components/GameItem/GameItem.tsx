@@ -11,9 +11,9 @@ interface GameItemProps {
   game: GameFieldsType;
 }
 
-const isTeamIsWinner = (game: GameFieldsType, team: string) => {
+const isTeamIsWinner = (game: GameFieldsType, team?: string) => {
   if (game.status === "done" || game.status === "live") {
-    if (game.home_team_name[0] === team) {
+    if (game.home_team_name?.[0] === team) {
       return game.home_score > game.away_score;
     } else {
       return game.away_score > game.home_score;
@@ -25,40 +25,40 @@ const isTeamIsWinner = (game: GameFieldsType, team: string) => {
 const GameItem = ({ game }: GameItemProps) => {
   return (
     <tr>
-      <td className="whitespace-nowrap pl-4 pr-3 text-sm sm:pl-6">
+      <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm sm:pl-6">
         <div className="flex items-center">
           <div className="flex-shrink-0 flex flex-row">
             <img
               className="h-10 w-10 rounded object-contain"
-              src={game.home_team_logo[0]}
+              src={game.home_team_logo?.[0]}
               alt=""
             />
             <img
               className="h-10 w-10 rounded object-contain"
-              src={game.away_team_logo[0]}
+              src={game.away_team_logo?.[0]}
               alt=""
             />
           </div>
           <div className="ml-4">
             <div
               className={classNames(
-                "font-medium font-bold",
-                isTeamIsWinner(game, game.home_team_name[0])
+                "font-bold",
+                isTeamIsWinner(game, game.home_team_name?.[0])
                   ? "text-indigo-600"
                   : "text-gray-500"
               )}
             >
-              {game.home_team_name[0]}
+              {game.home_team_name?.[0]}
             </div>
             <div
               className={classNames(
-                "font-medium font-bold",
-                isTeamIsWinner(game, game.away_team_name[0])
+                "font-bold",
+                isTeamIsWinner(game, game.away_team_name?.[0])
                   ? "text-indigo-600"
                   : "text-gray-500"
               )}
             >
-              {game.away_team_name[0]}
+              {game.away_team_name?.[0]}
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@ const GameItem = ({ game }: GameItemProps) => {
             {/** @ts-ignore */}
             {i18n.t(`games:status:${game.status}`)}
           </span>
-          {game.status === "live" && <Timer dateTime={game.started_at} />}
+          {game.status === "live" && <Timer dateTime={game.date} />}
         </div>
         {game.status === "live" && (
           <p>
@@ -84,7 +84,7 @@ const GameItem = ({ game }: GameItemProps) => {
           </p>
         )}
         {game.status === "upcoming" && (
-          <p>{dayjs(game.started_at).format("ddd DD MMM HH:mm")}</p>
+          <p>{dayjs(game.date).format("ddd DD MMM HH:mm")}</p>
         )}
       </td>
       <td className="relative whitespace-nowrap  pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
@@ -92,7 +92,7 @@ const GameItem = ({ game }: GameItemProps) => {
           <dd
             className={classNames(
               "mt-1 text-2xl font-semibold tracking-tight ",
-              isTeamIsWinner(game, game.home_team_name[0])
+              isTeamIsWinner(game, game.home_team_name?.[0])
                 ? "text-indigo-600"
                 : "text-gray-500"
             )}
@@ -102,7 +102,7 @@ const GameItem = ({ game }: GameItemProps) => {
           <dd
             className={classNames(
               "-mt-1 text-xl font-semibold tracking-tight ",
-              isTeamIsWinner(game, game.away_team_name[0])
+              isTeamIsWinner(game, game.away_team_name?.[0])
                 ? "text-3xl text-indigo-600"
                 : "text-2xl text-gray-500"
             )}

@@ -44,10 +44,6 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
     }
   }, [categories, selectedCategory]);
 
-  console.log({
-    selectedPool,
-  });
-
   return (
     <RootContext.Provider
       value={{

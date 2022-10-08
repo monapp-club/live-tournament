@@ -32,5 +32,7 @@
       "first": "First Half",
       "second": "Second Half"
     }
-  }
+  },
+  "navigation:header:selector:pool": "Select pool",
+  "navigation:header:selector:category": "Select category"
 }

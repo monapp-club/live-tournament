@@ -5,12 +5,17 @@ export type TeamsFieldsType = {
   name: string;
   rank: number;
   pool: string;
-  logo: string;
   points: number;
   wins: number;
+  draws: number;
   losses: number;
   played: number;
+  bonus_off: number;
+  bonus_def: number;
+  diff: number;
   category: CategoryEnumType;
+  club_name: [string];
+  club_logo_url: [string];
 };
 
 export type GameFieldsType = {
@@ -24,10 +29,10 @@ export type GameFieldsType = {
   away_score: number;
   status: "live" | "upcoming" | "done";
   half_time: "first" | "second";
-  home_team_name: [string];
-  home_team_logo: [string];
-  away_team_logo: [string];
-  away_team_name: [string];
+  home_team_name?: [string];
+  home_team_logo?: [string];
+  away_team_logo?: [string];
+  away_team_name?: [string];
 };
 
 export type AirtableRecordType<T> = {

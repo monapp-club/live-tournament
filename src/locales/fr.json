@@ -32,5 +32,7 @@
       "first": "1ère mi-temps",
       "second": "2ème mi-temps"
     }
-  }
+  },
+  "navigation:header:selector:pool": "Selectionner une poule",
+  "navigation:header:selector:category": "Sélectionner une catégorie"
 }

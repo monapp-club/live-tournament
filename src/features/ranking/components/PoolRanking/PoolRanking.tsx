@@ -1,3 +1,4 @@
+import { TeamsFieldsType } from "../../../../api/types";
 import { PoolRankingType } from "../../../../types";
 
 interface PoolRankingProps {
@@ -30,19 +31,43 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      MJ
+                      J
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      MG
+                      G
                     </th>
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      MP
+                      N
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      P
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      B+
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      B-
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Diff
                     </th>
                     <th
                       scope="col"
@@ -53,58 +78,86 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {pool.ranking.map((ranking) => (
-                    <tr key={ranking.id}>
-                      {/* Position */}
-                      <td className="whitespace-nowrap px-3 py-4">
-                        <p className="text-indigo-800 text-center text-2xl font-semibold text-white">
-                          {ranking.rank}
-                        </p>
-                      </td>
-                      {/* Équipe */}
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
-                        <div className="flex items-center">
-                          <div className="h-10 w-10 flex-shrink-0">
-                            <img
-                              className="h-10 w-10 rounded object-contain"
-                              src={ranking.logo}
-                              alt=""
-                            />
-                          </div>
-                          <div className="ml-4">
-                            <div className="font-medium text-gray-900">
-                              {ranking.name}
+                  {pool.ranking.map((ranking) => {
+                    return (
+                      <tr key={ranking.id}>
+                        {/* Position */}
+                        <td className="whitespace-nowrap py-4">
+                          <p className="text-indigo-800 text-center text-2xl font-semibold">
+                            {ranking.rank}
+                          </p>
+                        </td>
+                        {/* Équipe */}
+                        <td className="whitespace-nowrap">
+                          <div className="flex items-center">
+                            <div className="h-10 w-10 flex-shrink-0">
+                              <img
+                                className="h-10 w-10 rounded object-contain"
+                                src={ranking.club_logo_url[0]}
+                                alt=""
+                              />
                             </div>
-                            <div className="text-gray-500">{ranking.pool}</div>
+                            <div className="ml-4">
+                              <div className="font-medium text-gray-900">
+                                {ranking.name}
+                              </div>
+                              <div className="text-gray-500">
+                                {ranking.pool}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      {/* Matchs joués */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm">
-                        <p className="text-xl font-semibold text-gray-500">
-                          {ranking.played}
-                        </p>
-                      </td>
-                      {/* Matchs gagnés */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm">
-                        <p className="text-xl font-semibold text-gray-500">
-                          {ranking.wins}
-                        </p>
-                      </td>
-                      {/* Matchs perdus */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm">
-                        <p className="text-xl font-semibold text-gray-500">
-                          {ranking.losses}
-                        </p>
-                      </td>
-                      {/* Points */}
-                      <td className="whitespace-nowrap px-3 py-4 text-sm">
-                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-indigo-600">
-                          {ranking.points}
-                        </dd>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        {/* Matchs joués */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <p className="text-xl font-semibold text-gray-500">
+                            {ranking.played}
+                          </p>
+                        </td>
+                        {/* Matchs gagnés */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <p className="text-xl font-semibold text-gray-500">
+                            {ranking.wins}
+                          </p>
+                        </td>
+                        {/* Matchs nuls */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <p className="text-xl font-semibold text-gray-500">
+                            {ranking.draws}
+                          </p>
+                        </td>
+                        {/* Matchs perdus */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <p className="text-xl font-semibold text-gray-500">
+                            {ranking.losses}
+                          </p>
+                        </td>
+                        {/* Bonus offensif */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <p className="text-xl font-semibold text-gray-500">
+                            {ranking.bonus_off}
+                          </p>
+                        </td>
+                        {/* Bonus défensif */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <p className="text-xl font-semibold text-gray-500">
+                            {ranking.bonus_def}
+                          </p>
+                        </td>
+                        {/* Diff */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <p className="text-xl font-semibold text-gray-500">
+                            {ranking.diff}
+                          </p>
+                        </td>
+                        {/* Points */}
+                        <td className="whitespace-nowrap px-3 py-4 text-sm">
+                          <dd className="mt-1 text-3xl font-semibold tracking-tight text-indigo-600">
+                            {ranking.points}
+                          </dd>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
