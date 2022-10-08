@@ -1,4 +1,15 @@
-export type CategoryEnumType = "U10" | "U12";
+export type CategoryEnumType =
+  | "U12 - A"
+  | "U12 - B"
+  | "U12 - C"
+  | "U10 - A"
+  | "U10 - B"
+  | "U10 - C";
+
+export type CategoryFieldsType = {
+  id: string;
+  name: CategoryEnumType;
+};
 
 export type TeamsFieldsType = {
   id: string;
@@ -45,5 +56,5 @@ export type AirtableResultType<T> = {
   records: AirtableRecordType<T>[];
 };
 
-export type AirtableTableType = "teams" | "games";
-export type AirtableViewType = "list" | "grid";
+export type AirtableTableType = "categories" | "teams" | "games";
+export type AirtableViewType = "list";

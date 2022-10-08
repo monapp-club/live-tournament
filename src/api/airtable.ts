@@ -1,14 +1,16 @@
 import {
+  CategoryPoolFixtureType,
   CategoryPoolGameType,
-  CategoryPoolRankingType,
+  PoolFixtureType,
   PoolGamesType,
-  PoolRankingType,
 } from "../types";
 import { groupBy } from "../utils";
 import {
   AirtableRecordType,
   AirtableTableType,
   AirtableViewType,
+  CategoryEnumType,
+  CategoryFieldsType,
   GameFieldsType,
   TeamsFieldsType,
 } from "./types";
@@ -16,12 +18,23 @@ import {
 const config = {
   base: process.env.REACT_APP_AIRTABLE_BASE,
   apiKey: process.env.REACT_APP_AIRTABLE_API_KEY,
-  // maxRecords: process.env.REACT_APP_AIRTABLE_MAX_RECORDS,
+  maxRecords: process.env.REACT_APP_AIRTABLE_MAX_RECORDS, // 100 is the max
 };
 
-const getRequest = (table: AirtableTableType, view: AirtableViewType) =>
-  new Request(
-    `https://api.airtable.com/v0/${config.base}/${table}?view=${view}`,
+const getRequest = (
+  table: AirtableTableType,
+  view: AirtableViewType,
+  filterByFormula?: string
+) => {
+  const params = new URLSearchParams({
+    api_key: config.apiKey ?? "",
+    maxRecords: config.maxRecords ?? "",
+    view,
+    ...(filterByFormula && { filterByFormula }),
+  });
+
+  return new Request(
+    `https://api.airtable.com/v0/${config.base}/${table}?${params}`,
     {
       method: "get",
       headers: new Headers({
@@ -29,15 +42,19 @@ const getRequest = (table: AirtableTableType, view: AirtableViewType) =>
       }),
     }
   );
+};
 
 const fetchAirtableRecords = async <T>(
   table: AirtableTableType,
-  view: AirtableViewType
+  view: AirtableViewType,
+  filterByFormula?: string
 ) => {
   try {
-    const resp = (await fetch(getRequest(table, view)).catch((err) => {
-      console.log(err);
-    })) as Response;
+    const resp = (await fetch(getRequest(table, view, filterByFormula)).catch(
+      (err) => {
+        console.log(err);
+      }
+    )) as Response;
     if (resp.status >= 200 && resp.status < 300) {
       const json = await resp.json();
       const { records } = json;
@@ -48,24 +65,35 @@ const fetchAirtableRecords = async <T>(
   }
 };
 
-export const fetchRankingByCategories = async (): Promise<
-  CategoryPoolRankingType | undefined
-> => {
+export const fetchCategories = async () => {
+  try {
+    const records = await fetchAirtableRecords<
+      AirtableRecordType<CategoryFieldsType>
+    >("categories", "list");
+    return records?.map((record) => record.fields);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFixtureByCategory = async (
+  category: CategoryEnumType
+): Promise<CategoryPoolFixtureType | undefined> => {
   try {
     const data = await fetchAirtableRecords<
       AirtableRecordType<TeamsFieldsType>
-    >("teams", "list");
+    >("teams", "list", `{category}="${category}"`);
     if (data) {
       const categories = groupBy(data, (team) => team.fields.category);
       const poolsByCategories = Object.keys(
         categories
-      ).reduce<CategoryPoolRankingType>((acc, category) => {
+      ).reduce<CategoryPoolFixtureType>((acc, category) => {
         const pools = groupBy(categories[category], (team) => team.fields.pool);
-        const poolsArray: PoolRankingType[] = Object.keys(pools).map(
+        const poolsArray: PoolFixtureType[] = Object.keys(pools).map(
           (pool) => ({
             id: pool,
             name: pool,
-            ranking: pools[pool].map((team) => team.fields),
+            fixture: pools[pool].map((team) => team.fields),
           })
         );
         return {
@@ -80,13 +108,14 @@ export const fetchRankingByCategories = async (): Promise<
   }
 };
 
-export const fetchGamesByCategories = async (): Promise<
-  CategoryPoolGameType | undefined
-> => {
+export const fetchGamesByCategories = async (
+  category: CategoryEnumType
+): Promise<CategoryPoolGameType | undefined> => {
   try {
     const data = await fetchAirtableRecords<AirtableRecordType<GameFieldsType>>(
       "games",
-      "list"
+      "list",
+      `{category}="${category}"`
     );
     if (data) {
       const categories = groupBy(data, (game) => game.fields.category);

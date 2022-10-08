@@ -2,16 +2,18 @@ import { useQuery } from "@tanstack/react-query";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import {
   fetchGamesByCategories,
-  fetchRankingByCategories,
+  fetchFixtureByCategory,
+  fetchCategories,
 } from "../api/airtable";
-import { CategoryEnumType } from "../api/types";
-import { CategoryPoolGameType, CategoryPoolRankingType } from "../types";
+import { CategoryEnumType, CategoryFieldsType } from "../api/types";
+import { CategoryPoolFixtureType, CategoryPoolGameType } from "../types";
 
 type RootContextType = {
   selectedCategory?: CategoryEnumType;
   selectedPool?: string;
-  categories?: CategoryPoolRankingType;
+  fixtures?: CategoryPoolFixtureType;
   games?: CategoryPoolGameType;
+  categories?: CategoryFieldsType[];
   setSelectedCategory: (category: CategoryEnumType) => void;
   setSelectedPool: (pool?: string) => void;
 };
@@ -19,38 +21,41 @@ type RootContextType = {
 export const RootContext = createContext<RootContextType>({
   selectedCategory: undefined,
   selectedPool: undefined,
-  categories: undefined,
+  fixtures: undefined,
   games: undefined,
   setSelectedCategory: (category: string) => {},
   setSelectedPool: (pool?: string) => {},
 });
 
 export const RootProvider = ({ children }: PropsWithChildren) => {
-  const [selectedCategory, setSelectedCategory] = useState<CategoryEnumType>();
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryEnumType>("U12 - A");
   const [selectedPool, setSelectedPool] = useState<string>();
 
-  const { data: categories } = useQuery(
-    ["poolByCategories"],
-    fetchRankingByCategories
+  const { data: categories } = useQuery(["categories"], fetchCategories);
+  const { data: fixtures } = useQuery(
+    ["fixtureByCategories", selectedCategory],
+    () => fetchFixtureByCategory(selectedCategory)
   );
   const { data: games } = useQuery(
-    ["gameByCategories"],
-    fetchGamesByCategories
+    ["gameByCategories", selectedCategory, selectedPool],
+    () => fetchGamesByCategories(selectedCategory)
   );
 
   useEffect(() => {
-    if (!selectedCategory && categories) {
-      setSelectedCategory(Object.keys(categories)[0] as CategoryEnumType);
+    if (!selectedCategory && fixtures) {
+      setSelectedCategory(Object.keys(fixtures)[0] as CategoryEnumType);
     }
-  }, [categories, selectedCategory]);
+  }, [fixtures, selectedCategory]);
 
   return (
     <RootContext.Provider
       value={{
         selectedCategory,
         selectedPool,
-        categories,
+        fixtures,
         games,
+        categories,
         setSelectedCategory,
         setSelectedPool,
       }}

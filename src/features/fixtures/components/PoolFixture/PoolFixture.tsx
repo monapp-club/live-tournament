@@ -1,11 +1,10 @@
-import { TeamsFieldsType } from "../../../../api/types";
-import { PoolRankingType } from "../../../../types";
+import { PoolFixtureType } from "../../../../types";
 
-interface PoolRankingProps {
-  pool: PoolRankingType;
+interface PoolFixtureProps {
+  pool: PoolFixtureType;
 }
 
-const PoolRanking = ({ pool }: PoolRankingProps) => {
+const PoolFixture = ({ pool }: PoolFixtureProps) => {
   return (
     <div>
       <div className="flex flex-col">
@@ -78,7 +77,7 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {pool.ranking.map((ranking) => {
+                  {pool.fixture.map((ranking) => {
                     return (
                       <tr key={ranking.id}>
                         {/* Position */}
@@ -168,4 +167,4 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
   );
 };
 
-export default PoolRanking;
+export default PoolFixture;

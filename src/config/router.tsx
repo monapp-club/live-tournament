@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouteObject, To } from "react-router-dom";
 import i18n from "../i18n";
 import GamesPage from "../features/games/screens/GamesPage";
-import RankingPage from "../features/ranking/screens/RankingPage";
+import FixturePage from "../features/fixtures/screens/FixturePage";
 
 export const getRoutes = (): (RouteObject & { path: To; title: string })[] => [
   {
     id: "ranking",
     path: "/",
-    element: <RankingPage />,
+    element: <FixturePage />,
     title: i18n.t("navigation:ranking:title"),
   },
   {

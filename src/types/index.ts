@@ -4,14 +4,14 @@ import {
   TeamsFieldsType,
 } from "../api/types";
 
-export type PoolRankingType = {
+export type PoolFixtureType = {
   id: string;
   name: string;
-  ranking: TeamsFieldsType[];
+  fixture: TeamsFieldsType[];
 };
 
-export type CategoryPoolRankingType = {
-  [key in CategoryEnumType]?: PoolRankingType[];
+export type CategoryPoolFixtureType = {
+  [key in CategoryEnumType]?: PoolFixtureType[];
 };
 
 export type PoolGamesType = {

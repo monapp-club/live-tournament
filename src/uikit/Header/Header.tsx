@@ -13,15 +13,14 @@ const Header = () => {
   const {
     selectedCategory,
     categories,
+    fixtures,
     setSelectedCategory,
     selectedPool,
     setSelectedPool,
   } = useContext(RootContext);
 
-  const categoryTabs = Object.keys(categories || {});
   const poolTabs =
-    categories?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) ||
-    [];
+    fixtures?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
 
   const isRankingPage = isCurrentPath("/");
 
@@ -66,14 +65,11 @@ const Header = () => {
                       ))}
                     </div>
                   </div>
-                  <div className="flex flex-row">
-                    {categoryTabs?.length > 0 && (
-                      <div className="border-t border-gray-200 pt-4 pb-3">
+                  <div className="flex flex-row items-center">
+                    {categories && categories?.length > 0 && (
+                      <div className=" pr-2">
                         <SelectDropdown
-                          options={[
-                            i18n.t("navigation:header:selector:category"),
-                            ...categoryTabs,
-                          ]}
+                          options={categories.map((category) => category.name)}
                           onSelect={(value) =>
                             setSelectedCategory(value as CategoryEnumType)
                           }
@@ -84,8 +80,8 @@ const Header = () => {
                         />
                       </div>
                     )}
-                    {poolTabs?.length > 0 && !isRankingPage && (
-                      <div className="border-t border-gray-200 pt-4 pb-3">
+                    {!isRankingPage && (
+                      <div>
                         <SelectDropdown
                           options={[
                             i18n.t("navigation:header:selector:pool"),
