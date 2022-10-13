@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getRoutes } from "../../../config/router";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   const routes = getRoutes();
@@ -46,13 +47,13 @@ const LandingPage = () => {
                 </div>
                 <div className="hidden md:ml-10 md:block md:space-x-8 md:pr-4">
                   {routes.map((item) => (
-                    <a
+                    <Link
                       key={item.title}
-                      href={item.path}
+                      to={item.path}
                       className="font-medium text-gray-500 hover:text-gray-900"
                     >
                       {item.title}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </nav>
@@ -89,13 +90,13 @@ const LandingPage = () => {
                   </div>
                   <div className="space-y-1 px-2 pt-2 pb-3">
                     {routes.map((item) => (
-                      <a
+                      <Link
                         key={item.title}
-                        href={item.path}
+                        to={item.path}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                       >
                         {item.title}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
