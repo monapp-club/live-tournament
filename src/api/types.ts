@@ -57,5 +57,11 @@ export type AirtableResultType<T> = {
   records: AirtableRecordType<T>[];
 };
 
-export type AirtableTableType = "categories" | "teams" | "games";
+export type AirtableTableType =
+  | "categories"
+  | "teams"
+  | "games"
+  | "ranking"
+  | "ranking_pm"
+  | "games_pm";
 export type AirtableViewType = "list";

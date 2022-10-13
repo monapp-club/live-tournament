@@ -1,0 +1,61 @@
+let rankingTable = base.getTable("ranking");
+let rankingPmTable = base.getTable("ranking_pm");
+let gamesPmTable = base.getTable("games_pm");
+let categoriesTable = base.getTable("categories");
+
+// Get ranking records
+const rankingRecords = await rankingTable.selectRecordsAsync({
+  fields: ["team", "name", "category_link", "rank"],
+});
+
+// Get categories records
+const categoriesRecords = await categoriesTable.selectRecordsAsync({
+  fields: ["name"],
+});
+
+const recordsToCreate = categoriesRecords.records.reduce((acc, category) => {
+  // Get teams associated to the category
+  const teams = rankingRecords.records.filter((r) => {
+    const categoryLink = r.getCellValueAsString("category_link");
+    return categoryLink === category.name;
+  });
+
+  // Build new pools from the ranking
+  const poolsByRanking = teams.reduce((acc, cur) => {
+    const rank = cur.getCellValueAsString("rank");
+    const teamRecordId = cur.getCellValue("team")[0].id;
+    if (acc?.[rank]) {
+      acc?.[rank]?.push({
+        ...cur,
+        teamRecordId,
+      });
+    } else {
+      acc[rank] = [
+        {
+          ...cur,
+          teamRecordId,
+        },
+      ];
+    }
+    return acc;
+  }, []);
+
+  poolsByRanking.forEach((rank, index) => {
+    rank.forEach(async (team, teamIndex) => {
+      acc.push({
+        fields: {
+          team: [{ id: team.teamRecordId }],
+          pool_pm: `Poule ${index}`,
+          rank: teamIndex + 1,
+        },
+      });
+    });
+  });
+
+  return acc;
+}, []);
+
+console.log(recordsToCreate);
+for (let i = 0; i < recordsToCreate.length; i += 50) {
+  await rankingPmTable.createRecordsAsync(recordsToCreate.slice(i, i + 50));
+}

@@ -2,16 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import {
   fetchGamesByCategories,
-  fetchFixtureByCategory,
+  fetchRankingByCategory,
   fetchCategories,
 } from "../api/airtable";
 import { CategoryEnumType, CategoryFieldsType } from "../api/types";
-import { CategoryPoolFixtureType, CategoryPoolGameType } from "../types";
+import { CategoryPoolRankingType, CategoryPoolGameType } from "../types";
 
 type RootContextType = {
   selectedCategory?: CategoryEnumType;
   selectedPool?: string;
-  fixtures?: CategoryPoolFixtureType;
+  ranking?: CategoryPoolRankingType;
   games?: CategoryPoolGameType;
   categories?: CategoryFieldsType[];
   setSelectedCategory: (category: CategoryEnumType) => void;
@@ -21,7 +21,7 @@ type RootContextType = {
 export const RootContext = createContext<RootContextType>({
   selectedCategory: undefined,
   selectedPool: undefined,
-  fixtures: undefined,
+  ranking: undefined,
   games: undefined,
   setSelectedCategory: (category: string) => {},
   setSelectedPool: (pool?: string) => {},
@@ -33,9 +33,9 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
   const [selectedPool, setSelectedPool] = useState<string>();
 
   const { data: categories } = useQuery(["categories"], fetchCategories);
-  const { data: fixtures } = useQuery(
-    ["fixtureByCategories", selectedCategory],
-    () => fetchFixtureByCategory(selectedCategory)
+  const { data: ranking } = useQuery(
+    ["rankingByCategories", selectedCategory],
+    () => fetchRankingByCategory(selectedCategory)
   );
   const { data: games } = useQuery(
     ["gameByCategories", selectedCategory, selectedPool],
@@ -43,17 +43,17 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
   );
 
   useEffect(() => {
-    if (!selectedCategory && fixtures) {
-      setSelectedCategory(Object.keys(fixtures)[0] as CategoryEnumType);
+    if (!selectedCategory && ranking) {
+      setSelectedCategory(Object.keys(ranking)[0] as CategoryEnumType);
     }
-  }, [fixtures, selectedCategory]);
+  }, [ranking, selectedCategory]);
 
   return (
     <RootContext.Provider
       value={{
         selectedCategory,
         selectedPool,
-        fixtures,
+        ranking,
         games,
         categories,
         setSelectedCategory,

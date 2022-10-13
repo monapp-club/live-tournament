@@ -13,14 +13,14 @@ const Header = () => {
   const {
     selectedCategory,
     categories,
-    fixtures,
+    ranking,
     setSelectedCategory,
     selectedPool,
     setSelectedPool,
   } = useContext(RootContext);
 
   const poolTabs =
-    fixtures?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
+    ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
 
   const isRankingPage = isCurrentPath("/");
 

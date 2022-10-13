@@ -1,7 +1,7 @@
 import {
-  CategoryPoolFixtureType,
+  CategoryPoolRankingType,
   CategoryPoolGameType,
-  PoolFixtureType,
+  PoolRankingType,
   PoolGamesType,
 } from "../types";
 import { groupBy } from "../utils";
@@ -76,24 +76,24 @@ export const fetchCategories = async () => {
   }
 };
 
-export const fetchFixtureByCategory = async (
+export const fetchRankingByCategory = async (
   category: CategoryEnumType
-): Promise<CategoryPoolFixtureType | undefined> => {
+): Promise<CategoryPoolRankingType | undefined> => {
   try {
     const data = await fetchAirtableRecords<
       AirtableRecordType<TeamsFieldsType>
-    >("teams", "list", `{category}="${category}"`);
+    >("ranking", "list", `{category}="${category}"`);
     if (data) {
       const categories = groupBy(data, (team) => team.fields.category);
       const poolsByCategories = Object.keys(
         categories
-      ).reduce<CategoryPoolFixtureType>((acc, category) => {
+      ).reduce<CategoryPoolRankingType>((acc, category) => {
         const pools = groupBy(categories[category], (team) => team.fields.pool);
-        const poolsArray: PoolFixtureType[] = Object.keys(pools).map(
+        const poolsArray: PoolRankingType[] = Object.keys(pools).map(
           (pool) => ({
             id: pool,
             name: pool,
-            fixture: pools[pool].map((team) => team.fields),
+            ranking: pools[pool].map((team) => team.fields),
           })
         );
         return {

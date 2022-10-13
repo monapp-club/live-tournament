@@ -1,10 +1,10 @@
-import { PoolFixtureType } from "../../../../types";
+import { PoolRankingType } from "../../../../types";
 
-interface PoolFixtureProps {
-  pool: PoolFixtureType;
+interface PoolRankingProps {
+  pool: PoolRankingType;
 }
 
-const PoolFixture = ({ pool }: PoolFixtureProps) => {
+const PoolRanking = ({ pool }: PoolRankingProps) => {
   return (
     <div>
       <div className="flex flex-col">
@@ -77,7 +77,7 @@ const PoolFixture = ({ pool }: PoolFixtureProps) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {pool.fixture.map((ranking) => {
+                  {pool.ranking.map((ranking) => {
                     return (
                       <tr key={ranking.id}>
                         {/* Position */}
@@ -109,49 +109,49 @@ const PoolFixture = ({ pool }: PoolFixtureProps) => {
                         {/* Matchs joués */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <p className="text-xl font-semibold text-gray-500">
-                            {ranking.played}
+                            {ranking.played || "0"}
                           </p>
                         </td>
                         {/* Matchs gagnés */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <p className="text-xl font-semibold text-gray-500">
-                            {ranking.wins}
+                            {ranking.wins || "0"}
                           </p>
                         </td>
                         {/* Matchs nuls */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <p className="text-xl font-semibold text-gray-500">
-                            {ranking.draws}
+                            {ranking.draws || "0"}
                           </p>
                         </td>
                         {/* Matchs perdus */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <p className="text-xl font-semibold text-gray-500">
-                            {ranking.losses}
+                            {ranking.losses || "0"}
                           </p>
                         </td>
                         {/* Bonus offensif */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <p className="text-xl font-semibold text-gray-500">
-                            {ranking.bonus_off}
+                            {ranking.bonus_off || "0"}
                           </p>
                         </td>
                         {/* Bonus défensif */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <p className="text-xl font-semibold text-gray-500">
-                            {ranking.bonus_def}
+                            {ranking.bonus_def || "0"}
                           </p>
                         </td>
                         {/* Diff */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <p className="text-xl font-semibold text-gray-500">
-                            {ranking.diff}
+                            {ranking.diff || "0"}
                           </p>
                         </td>
                         {/* Points */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <dd className="mt-1 text-3xl font-semibold tracking-tight text-indigo-600">
-                            {ranking.points}
+                            {ranking.points || "0"}
                           </dd>
                         </td>
                       </tr>
@@ -167,4 +167,4 @@ const PoolFixture = ({ pool }: PoolFixtureProps) => {
   );
 };
 
-export default PoolFixture;
+export default PoolRanking;
