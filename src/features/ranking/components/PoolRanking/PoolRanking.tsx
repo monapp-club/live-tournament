@@ -82,7 +82,7 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                       <tr key={ranking.id}>
                         {/* Position */}
                         <td className="whitespace-nowrap py-4">
-                          <p className="text-indigo-800 text-center text-2xl font-semibold">
+                          <p className="text-blue-800 text-center text-2xl font-semibold">
                             {ranking.rank}
                           </p>
                         </td>
@@ -150,7 +150,7 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                         </td>
                         {/* Points */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <dd className="mt-1 text-3xl font-semibold tracking-tight text-indigo-600">
+                          <dd className="mt-1 text-3xl font-semibold tracking-tight text-blue-600">
                             {ranking.points || "0"}
                           </dd>
                         </td>

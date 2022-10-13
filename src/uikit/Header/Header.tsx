@@ -36,12 +36,12 @@ const Header = () => {
                     <div className="flex flex-shrink-0 items-center">
                       <img
                         className="block h-8 w-auto lg:hidden"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/08/cropped-logo_as_soustons_2017.png"
                         alt="Your Company"
                       />
                       <img
                         className="hidden h-8 w-auto lg:block"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                        src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/08/cropped-logo_as_soustons_2017.png"
                         alt="Your Company"
                       />
                     </div>
@@ -52,7 +52,7 @@ const Header = () => {
                           to={item.path}
                           className={classNames(
                             isCurrentPath(item.path)
-                              ? "border-indigo-500 text-gray-900"
+                              ? "border-blue-500 text-gray-900"
                               : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300",
                             "inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                           )}

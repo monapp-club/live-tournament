@@ -45,7 +45,7 @@ const GameItem = ({ game }: GameItemProps) => {
               className={classNames(
                 "font-bold",
                 isTeamIsWinner(game, game.home_team_name?.[0])
-                  ? "text-indigo-600"
+                  ? "text-blue-600"
                   : "text-gray-500"
               )}
             >
@@ -55,7 +55,7 @@ const GameItem = ({ game }: GameItemProps) => {
               className={classNames(
                 "font-bold",
                 isTeamIsWinner(game, game.away_team_name?.[0])
-                  ? "text-indigo-600"
+                  ? "text-blue-600"
                   : "text-gray-500"
               )}
             >
@@ -91,7 +91,7 @@ const GameItem = ({ game }: GameItemProps) => {
             className={classNames(
               "mt-1 text-2xl font-semibold tracking-tight ",
               isTeamIsWinner(game, game.home_team_name?.[0])
-                ? "text-indigo-600"
+                ? "text-blue-600"
                 : "text-gray-500"
             )}
           >
@@ -101,7 +101,7 @@ const GameItem = ({ game }: GameItemProps) => {
             className={classNames(
               "-mt-1 text-xl font-semibold tracking-tight ",
               isTeamIsWinner(game, game.away_team_name?.[0])
-                ? "text-3xl text-indigo-600"
+                ? "text-3xl text-blue-600"
                 : "text-2xl text-gray-500"
             )}
           >

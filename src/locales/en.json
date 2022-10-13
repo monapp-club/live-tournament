@@ -5,6 +5,10 @@
     }
   },
   "navigation": {
+    "landing": {
+      "title": "Home",
+      "url": ""
+    },
     "ranking": {
       "title": "Ranking",
       "url": "ranking"
