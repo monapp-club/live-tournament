@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -75,7 +76,7 @@ const LandingPage = () => {
                     <div>
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
+                        src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/08/cropped-logo_as_soustons_2017.png"
                         alt=""
                       />
                     </div>
