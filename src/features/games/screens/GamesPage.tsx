@@ -7,11 +7,6 @@ import PoolGameList from "../components/PoolGamesList/PoolGamesList";
 
 const GamesPage = () => {
   const { selectedCategory, games, selectedPool } = useContext(RootContext);
-  console.log({
-    selectedCategory,
-    games,
-    selectedPool,
-  });
   return (
     <PageContainer title={i18n.t("navigation:games:title")}>
       <PoolGameList

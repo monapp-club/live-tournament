@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import Header from "../../uikit/Header/Header";
+import Header from "../Header/Header";
 
 interface PageContainerProps {
   title: string;
@@ -12,16 +12,18 @@ const PageContainer = ({
   return (
     <>
       <Header />
-      <div className="py-10">
+      <div className="py-6">
         <header>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
               {title}
             </h1>
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">{children}</div>
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {children}
+          </div>
         </main>
       </div>
     </>

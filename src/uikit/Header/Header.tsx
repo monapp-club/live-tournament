@@ -1,12 +1,13 @@
+import { useContext } from "react";
 import { Disclosure } from "@headlessui/react";
-import { classNames, isCurrentPath } from "../../utils";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getRoutes } from "../../config/router";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { classNames, isCurrentPath } from "../../utils";
 import { RootContext } from "../../providers/RootProvider";
-import { CategoryEnumType } from "../../api/types";
 import SelectDropdown from "../SelectDropdown/SelectDropdown";
 import i18n from "../../i18n";
+import { CategoryEnumType } from "../../api/types";
 
 const Header = () => {
   const routes = getRoutes();
@@ -23,11 +24,10 @@ const Header = () => {
     ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
 
   const isRankingPage = isCurrentPath("/");
-
   return (
     <>
       <div className="min-h-full">
-        <Disclosure as="nav" className="bg-white shadow-sm">
+        <Disclosure as="nav" className="border-b border-gray-200 bg-white">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -35,14 +35,14 @@ const Header = () => {
                   <div className="flex">
                     <div className="flex flex-shrink-0 items-center">
                       <img
-                        className="block h-8 w-auto lg:hidden"
-                        src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/08/cropped-logo_as_soustons_2017.png"
-                        alt="Your Company"
+                        className="block h-10 w-auto lg:hidden"
+                        src="/logo512.png"
+                        alt="AS Soustons Rugby"
                       />
                       <img
-                        className="hidden h-8 w-auto lg:block"
-                        src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/08/cropped-logo_as_soustons_2017.png"
-                        alt="Your Company"
+                        className="hidden h-10 w-auto lg:block"
+                        src="/logo512.png"
+                        alt="AS Soustons Rugby"
                       />
                     </div>
                     <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
@@ -67,7 +67,7 @@ const Header = () => {
                   </div>
                   <div className="flex flex-row items-center">
                     {categories && categories?.length > 0 && (
-                      <div className=" pr-2">
+                      <div className="pr-2">
                         <SelectDropdown
                           options={categories.map((category) => category.name)}
                           onSelect={(value) =>
@@ -77,6 +77,7 @@ const Header = () => {
                           placeholder={i18n.t(
                             "navigation:header:selector:category"
                           )}
+                          direction="left"
                         />
                       </div>
                     )}
@@ -96,8 +97,48 @@ const Header = () => {
                       </div>
                     )}
                   </div>
+                  <div className="-mr-2 flex items-center sm:hidden">
+                    {/* Mobile menu button */}
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      <span className="sr-only">Open main menu</span>
+                      {open ? (
+                        <XMarkIcon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <Bars3Icon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </Disclosure.Button>
+                  </div>
                 </div>
               </div>
+
+              <Disclosure.Panel className="sm:hidden">
+                <div className="space-y-1 pt-2 pb-3">
+                  {routes.map((item) => (
+                    <Disclosure.Button
+                      key={item.title}
+                      as="a"
+                      href={item.path}
+                      className={classNames(
+                        isCurrentPath(item.path)
+                          ? "bg-indigo-50 border-indigo-500 text-indigo-700"
+                          : "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800",
+                        "block pl-3 pr-4 py-2 border-l-4 text-base font-medium"
+                      )}
+                      aria-current={
+                        isCurrentPath(item.path) ? "page" : undefined
+                      }
+                    >
+                      {item.title}
+                    </Disclosure.Button>
+                  ))}
+                </div>
+              </Disclosure.Panel>
             </>
           )}
         </Disclosure>

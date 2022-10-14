@@ -29,14 +29,14 @@ const LandingPage = () => {
               >
                 <div className="flex flex-shrink-0 flex-grow items-center lg:flex-grow-0">
                   <div className="flex w-full items-center justify-between md:w-auto">
-                    <a href="#">
-                      <span className="sr-only">Your Company</span>
+                    <Link to={"/"}>
+                      <span className="sr-only">AS Soustons Rugby</span>
                       <img
-                        alt="Your Company"
-                        className="h-8 w-auto sm:h-10"
-                        src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/08/cropped-logo_as_soustons_2017.png"
+                        alt="AS Soustons Rugby"
+                        className="h-10 w-auto sm:h-15"
+                        src="/logo512.png"
                       />
-                    </a>
+                    </Link>
                     <div className="-mr-2 flex items-center md:hidden">
                       <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
                         <span className="sr-only">Open main menu</span>
@@ -75,11 +75,7 @@ const LandingPage = () => {
                 <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
                   <div className="flex items-center justify-between px-5 pt-4">
                     <div>
-                      <img
-                        className="h-8 w-auto"
-                        src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/08/cropped-logo_as_soustons_2017.png"
-                        alt=""
-                      />
+                      <img className="h-8 w-auto" src="/logo512.png" alt="" />
                     </div>
                     <div className="-mr-2">
                       <Popover.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
@@ -113,25 +109,27 @@ const LandingPage = () => {
                 </span>
               </h1>
               <p className="mt-3 text-base text-gray-500 sm:mx-auto sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-                fugiat aliqua.
+                Bienvenue à tous sur notre application spécialement créée pour
+                l'occasion. Nous sommes très heureux de vous accueillir pour
+                cette nouvelle édition du Tournoi de Soustons 2022 placé sous le
+                signe du rugby et de l'amitié. Bon tournoi à tous !
               </p>
               <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                <div className="rounded-md shadow">
-                  <a
-                    href="#"
+                <div>
+                  <Link
+                    to={"/games"}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-600 px-8 py-3 text-base font-medium text-white hover:bg-blue-700 md:py-4 md:px-10 md:text-lg"
                   >
-                    Parrainez l'école de rugby
-                  </a>
+                    Voir le live
+                  </Link>
                 </div>
-                <div className="mt-3 sm:mt-0 sm:ml-3">
+                <div className="mt-3 sm:mt-0 sm:ml-3 rounded-md shadow">
                   <a
-                    href="#"
+                    href="https://assoustons.ffr.fr/equipes/lecole-de-rugby"
+                    target={"_blank"}
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-100 px-8 py-3 text-base font-medium text-blue-700 hover:bg-blue-200 md:py-4 md:px-10 md:text-lg"
                   >
-                    Voir le live
+                    Découvrir l'école de rugby
                   </a>
                 </div>
               </div>

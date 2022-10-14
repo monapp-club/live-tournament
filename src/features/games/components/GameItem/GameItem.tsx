@@ -28,14 +28,14 @@ const GameItem = ({ game }: GameItemProps) => {
     <tr>
       <td className="whitespace-nowrap py-5 pl-4 pr-3 text-sm sm:pl-6">
         <div className="flex items-center">
-          <div className="flex-shrink-0 flex flex-row">
+          <div className="flex-shrink-0 md:flex md:flex-row">
             <img
-              className="h-10 w-10 rounded object-contain"
+              className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded object-contain pr-1"
               src={game.home_team_logo?.[0]}
               alt=""
             />
             <img
-              className="h-10 w-10 rounded object-contain"
+              className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded object-contain"
               src={game.away_team_logo?.[0]}
               alt=""
             />
@@ -43,7 +43,7 @@ const GameItem = ({ game }: GameItemProps) => {
           <div className="ml-4">
             <div
               className={classNames(
-                "font-bold",
+                "truncate font-bold",
                 isTeamIsWinner(game, game.home_team_name?.[0])
                   ? "text-blue-600"
                   : "text-gray-500"
@@ -53,7 +53,7 @@ const GameItem = ({ game }: GameItemProps) => {
             </div>
             <div
               className={classNames(
-                "font-bold",
+                "truncate font-bold",
                 isTeamIsWinner(game, game.away_team_name?.[0])
                   ? "text-blue-600"
                   : "text-gray-500"
