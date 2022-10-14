@@ -56,6 +56,7 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     refetchRanking();
     refetchGames();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayPart]);
 
   return (

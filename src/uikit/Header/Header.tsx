@@ -16,10 +16,10 @@ const Header = () => {
     categories,
     ranking,
     selectedPool,
-    dayPart,
+    // dayPart,
     setSelectedCategory,
     setSelectedPool,
-    setDayPart,
+    // setDayPart,
   } = useContext(RootContext);
 
   const poolTabs =
