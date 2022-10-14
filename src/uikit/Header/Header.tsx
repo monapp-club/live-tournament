@@ -14,18 +14,18 @@ const Header = () => {
   const {
     selectedCategory,
     categories,
-    // ranking,
-    // selectedPool,
+    ranking,
+    selectedPool,
     dayPart,
     setSelectedCategory,
-    // setSelectedPool,
+    setSelectedPool,
     setDayPart,
   } = useContext(RootContext);
 
-  // const poolTabs =
-  //   ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
+  const poolTabs =
+    ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
 
-  // const isRankingPage = isCurrentPath("/ranking");
+  const isRankingPage = isCurrentPath("/ranking");
   return (
     <>
       <div className="min-h-full">
@@ -68,6 +68,7 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="flex flex-row items-center">
+                    {/* @TODO: To enable for the afternoon
                     {categories && categories?.length > 0 && (
                       <div className="pr-2">
                         <SelectDropdown
@@ -93,7 +94,7 @@ const Header = () => {
                           direction="left"
                         />
                       </div>
-                    )}
+                    )} */}
                     {categories && categories?.length > 0 && (
                       <div className="pr-2">
                         <SelectDropdown
@@ -109,7 +110,7 @@ const Header = () => {
                         />
                       </div>
                     )}
-                    {/* {!isRankingPage && (
+                    {!isRankingPage && (
                       <div>
                         <SelectDropdown
                           options={[
@@ -123,7 +124,7 @@ const Header = () => {
                           )}
                         />
                       </div>
-                    )} */}
+                    )}
                   </div>
                   <div className="-mr-2 flex items-center sm:hidden">
                     {/* Mobile menu button */}
