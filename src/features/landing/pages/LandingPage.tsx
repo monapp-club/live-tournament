@@ -126,7 +126,8 @@ const LandingPage = () => {
                 <div className="mt-3 sm:mt-0 sm:ml-3 rounded-md shadow">
                   <a
                     href="https://assoustons.ffr.fr/equipes/lecole-de-rugby"
-                    target={"_blank"}
+                    target="_blank"
+                    rel="noreferrer"
                     className="flex w-full items-center justify-center rounded-md border border-transparent bg-blue-100 px-8 py-3 text-base font-medium text-blue-700 hover:bg-blue-200 md:py-4 md:px-10 md:text-lg"
                   >
                     Découvrir l'école de rugby
