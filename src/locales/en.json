@@ -1,7 +1,11 @@
 {
   "header": {
     "selector": {
-      "pool": "All pools"
+      "pool": "All pools",
+      "dayPart": {
+        "am": "Morning",
+        "pm": "Afternoon"
+      }
     }
   },
   "navigation": {

@@ -6,7 +6,11 @@
     },
     "header": {
       "selector": {
-        "pool": "Toutes les poules"
+        "pool": "Toutes les poules",
+        "dayPart": {
+          "am": "Matin",
+          "pm": "Après-midi"
+        }
       }
     },
     "ranking": {

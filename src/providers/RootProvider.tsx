@@ -14,8 +14,10 @@ type RootContextType = {
   ranking?: CategoryPoolRankingType;
   games?: CategoryPoolGameType;
   categories?: CategoryFieldsType[];
+  dayPart?: "am" | "pm";
   setSelectedCategory: (category: CategoryEnumType) => void;
   setSelectedPool: (pool?: string) => void;
+  setDayPart: (dayPart: "am" | "pm") => void;
 };
 
 export const RootContext = createContext<RootContextType>({
@@ -23,23 +25,26 @@ export const RootContext = createContext<RootContextType>({
   selectedPool: undefined,
   ranking: undefined,
   games: undefined,
+  dayPart: "am",
   setSelectedCategory: (category: string) => {},
   setSelectedPool: (pool?: string) => {},
+  setDayPart: (dayPart: "am" | "pm") => {},
 });
 
 export const RootProvider = ({ children }: PropsWithChildren) => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryEnumType>("U12 - A");
   const [selectedPool, setSelectedPool] = useState<string>();
+  const [dayPart, setDayPart] = useState<"am" | "pm">("am");
 
   const { data: categories } = useQuery(["categories"], fetchCategories);
-  const { data: ranking } = useQuery(
+  const { data: ranking, refetch: refetchRanking } = useQuery(
     ["rankingByCategories", selectedCategory],
-    () => fetchRankingByCategory(selectedCategory)
+    () => fetchRankingByCategory(selectedCategory, dayPart)
   );
-  const { data: games } = useQuery(
+  const { data: games, refetch: refetchGames } = useQuery(
     ["gameByCategories", selectedCategory, selectedPool],
-    () => fetchGamesByCategories(selectedCategory)
+    () => fetchGamesByCategories(selectedCategory, dayPart)
   );
 
   useEffect(() => {
@@ -47,6 +52,11 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
       setSelectedCategory(Object.keys(ranking)[0] as CategoryEnumType);
     }
   }, [ranking, selectedCategory]);
+
+  useEffect(() => {
+    refetchRanking();
+    refetchGames();
+  }, [dayPart]);
 
   return (
     <RootContext.Provider
@@ -56,8 +66,10 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
         ranking,
         games,
         categories,
+        dayPart,
         setSelectedCategory,
         setSelectedPool,
+        setDayPart,
       }}
     >
       {children}

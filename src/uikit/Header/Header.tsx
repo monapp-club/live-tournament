@@ -14,16 +14,18 @@ const Header = () => {
   const {
     selectedCategory,
     categories,
-    ranking,
+    // ranking,
+    // selectedPool,
+    dayPart,
     setSelectedCategory,
-    selectedPool,
-    setSelectedPool,
+    // setSelectedPool,
+    setDayPart,
   } = useContext(RootContext);
 
-  const poolTabs =
-    ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
+  // const poolTabs =
+  //   ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
 
-  const isRankingPage = isCurrentPath("/");
+  // const isRankingPage = isCurrentPath("/ranking");
   return (
     <>
       <div className="min-h-full">
@@ -69,6 +71,32 @@ const Header = () => {
                     {categories && categories?.length > 0 && (
                       <div className="pr-2">
                         <SelectDropdown
+                          options={["am", "pm"].map((d) =>
+                            i18n.t(`navigation:header:selector:dayPart:${d}`)
+                          )}
+                          onSelect={(value) => {
+                            if (
+                              value ===
+                              i18n.t("navigation:header:selector:dayPart:am")
+                            ) {
+                              setDayPart("am");
+                            } else {
+                              setDayPart("pm");
+                            }
+                          }}
+                          selected={i18n.t(
+                            `navigation:header:selector:dayPart:${dayPart}`
+                          )}
+                          placeholder={i18n.t(
+                            `header.navigation.selector.dayPart.${dayPart}`
+                          )}
+                          direction="left"
+                        />
+                      </div>
+                    )}
+                    {categories && categories?.length > 0 && (
+                      <div className="pr-2">
+                        <SelectDropdown
                           options={categories.map((category) => category.name)}
                           onSelect={(value) =>
                             setSelectedCategory(value as CategoryEnumType)
@@ -81,7 +109,7 @@ const Header = () => {
                         />
                       </div>
                     )}
-                    {!isRankingPage && (
+                    {/* {!isRankingPage && (
                       <div>
                         <SelectDropdown
                           options={[
@@ -95,7 +123,7 @@ const Header = () => {
                           )}
                         />
                       </div>
-                    )}
+                    )} */}
                   </div>
                   <div className="-mr-2 flex items-center sm:hidden">
                     {/* Mobile menu button */}

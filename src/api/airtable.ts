@@ -77,12 +77,17 @@ export const fetchCategories = async () => {
 };
 
 export const fetchRankingByCategory = async (
-  category: CategoryEnumType
+  category: CategoryEnumType,
+  dayPart: "am" | "pm"
 ): Promise<CategoryPoolRankingType | undefined> => {
   try {
     const data = await fetchAirtableRecords<
       AirtableRecordType<TeamsFieldsType>
-    >("ranking", "list", `{category}="${category}"`);
+    >(
+      dayPart === "am" ? "ranking" : "ranking_pm",
+      "list",
+      `{category}="${category}"`
+    );
     if (data) {
       const categories = groupBy(data, (team) => team.fields.category);
       const poolsByCategories = Object.keys(
@@ -109,11 +114,12 @@ export const fetchRankingByCategory = async (
 };
 
 export const fetchGamesByCategories = async (
-  category: CategoryEnumType
+  category: CategoryEnumType,
+  dayPart: "am" | "pm"
 ): Promise<CategoryPoolGameType | undefined> => {
   try {
     const data = await fetchAirtableRecords<AirtableRecordType<GameFieldsType>>(
-      "games",
+      dayPart === "am" ? "games" : "games_pm",
       "list",
       `{category}="${category}"`
     );
