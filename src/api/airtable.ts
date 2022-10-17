@@ -12,6 +12,7 @@ import {
   CategoryEnumType,
   CategoryFieldsType,
   GameFieldsType,
+  SponsorsFieldsType,
   TeamsFieldsType,
 } from "./types";
 
@@ -140,6 +141,21 @@ export const fetchGamesByCategories = async (
         };
       }, {});
       return poolsByCategories;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchSponsors = async (): Promise<
+  SponsorsFieldsType[] | undefined
+> => {
+  try {
+    const data = await fetchAirtableRecords<
+      AirtableRecordType<SponsorsFieldsType>
+    >("sponsors", "list");
+    if (data) {
+      return data.map((sponsor) => sponsor.fields);
     }
   } catch (error) {
     console.log(error);

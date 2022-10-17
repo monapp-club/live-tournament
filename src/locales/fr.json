@@ -28,6 +28,10 @@
     "playOff": {
       "title": "Phases finales",
       "url": "phases-finales"
+    },
+    "clubs": {
+      "title": "Clubs",
+      "url": "clubs"
     }
   },
   "games": {

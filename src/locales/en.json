@@ -28,6 +28,10 @@
     "playOff": {
       "title": "Play Off",
       "url": "play-off"
+    },
+    "clubs": {
+      "title": "Clubs",
+      "url": "clubs"
     }
   },
   "games": {

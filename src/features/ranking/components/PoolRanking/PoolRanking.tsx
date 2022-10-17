@@ -1,4 +1,5 @@
 import { PoolRankingType } from "../../../../types";
+import { dataRankingColumns, getDataRankingConfig } from "../../ranking.config";
 
 interface PoolRankingProps {
   pool: PoolRankingType;
@@ -26,48 +27,15 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                     >
                       Équipe
                     </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      J
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      G
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      N
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      P
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      B+
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      B-
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                    >
-                      Diff
-                    </th>
+                    {dataRankingColumns.map((column) => (
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      >
+                        {column}
+                      </th>
+                    ))}
+
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
@@ -78,6 +46,7 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {pool.ranking.map((ranking) => {
+                    const data = getDataRankingConfig(ranking);
                     return (
                       <tr key={ranking.id}>
                         {/* Position */}
@@ -106,48 +75,14 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                             </div>
                           </div>
                         </td>
-                        {/* Matchs joués */}
-                        <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <p className="text-xl font-semibold text-gray-500">
-                            {ranking.played || "0"}
-                          </p>
-                        </td>
-                        {/* Matchs gagnés */}
-                        <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <p className="text-xl font-semibold text-gray-500">
-                            {ranking.wins || "0"}
-                          </p>
-                        </td>
-                        {/* Matchs nuls */}
-                        <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <p className="text-xl font-semibold text-gray-500">
-                            {ranking.draws || "0"}
-                          </p>
-                        </td>
-                        {/* Matchs perdus */}
-                        <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <p className="text-xl font-semibold text-gray-500">
-                            {ranking.losses || "0"}
-                          </p>
-                        </td>
-                        {/* Bonus offensif */}
-                        <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <p className="text-xl font-semibold text-gray-500">
-                            {ranking.bonus_off || "0"}
-                          </p>
-                        </td>
-                        {/* Bonus défensif */}
-                        <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <p className="text-xl font-semibold text-gray-500">
-                            {ranking.bonus_def || "0"}
-                          </p>
-                        </td>
-                        {/* Diff */}
-                        <td className="whitespace-nowrap px-3 py-4 text-sm">
-                          <p className="text-xl font-semibold text-gray-500">
-                            {ranking.diff || "0"}
-                          </p>
-                        </td>
+                        {data.map(({ value }) => (
+                          <td className="whitespace-nowrap px-3 py-4 text-sm">
+                            <p className="text-xl font-semibold text-gray-500">
+                              {value}
+                            </p>
+                          </td>
+                        ))}
+
                         {/* Points */}
                         <td className="whitespace-nowrap px-3 py-4 text-sm">
                           <dd className="mt-1 text-3xl font-semibold tracking-tight text-blue-600">

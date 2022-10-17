@@ -21,8 +21,8 @@ export type TeamsFieldsType = {
   draws: number;
   losses: number;
   played: number;
-  bonus_off: number;
-  bonus_def: number;
+  total_tries_taken: number;
+  total_tries_scored: number;
   diff: number;
   category: CategoryEnumType;
   club_name: [string];
@@ -63,5 +63,12 @@ export type AirtableTableType =
   | "games"
   | "ranking"
   | "ranking_pm"
-  | "games_pm";
+  | "games_pm"
+  | "sponsors";
 export type AirtableViewType = "list";
+
+export type SponsorsFieldsType = {
+  name: string;
+  logo_url?: string;
+  external_url?: string;
+};

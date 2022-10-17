@@ -1,0 +1,212 @@
+// Get teams ranking
+const rankingTeamTable = base.getTable("ranking");
+const rankingTeamRecordsResult = await rankingTeamTable.selectRecordsAsync({fields: ['id', 'team_id', 'category_link', 'pool', 'rank']});
+const rankingTeamRecords = rankingTeamRecordsResult.records;
+const rankingTeamIds = rankingTeamRecords.map((teamRecord) => teamRecord.getCellValueAsString('team_id'));
+
+// Get games data by team
+const gamesTable = base.getTable("games");
+const gamesRecordsResult = await gamesTable.selectRecordsAsync({fields: ['status', 'home_team', 'away_team', 'home_tries', 'away_tries', 'winner', 'looser', 'category', 'pool']});
+const gamesRecords = gamesRecordsResult.records;
+
+const gamesByTeam = gamesRecords.reduce((acc, record) => {
+  const status = record.getCellValueAsString("status");
+  const homeTeam = record.getCellValueAsString("home_team");
+  const awayTeam = record.getCellValueAsString("away_team");
+  const winner = record.getCellValueAsString("winner") || null;
+  const looser = record.getCellValueAsString("looser") || null;
+  const homeTries = record.getCellValueAsString("home_tries") || null;
+  const awayTries = record.getCellValueAsString("away_tries") || null;
+  const pool = record.getCellValueAsString("pool") || null;
+  const category = record.getCellValueAsString("category") || null;
+
+  if (status !== 'done') {
+    return acc;
+  }
+
+  if (!acc[homeTeam]) {
+    acc[homeTeam] = [];
+  }
+  if (!acc[awayTeam]) {
+    acc[awayTeam] = [];
+  }
+
+  const data = {
+    ...record,
+    name: record.name,
+    winner,
+    looser,
+    status,
+    homeTeam,
+    awayTeam,
+    pool,
+    category,
+    tries: {
+      [homeTeam]: homeTries,
+      [awayTeam]: awayTries,
+    }
+  }
+
+  acc[homeTeam].push(data);
+  acc[awayTeam].push(data);
+  return acc;
+}, {});
+
+const gameTeamIds = rankingTeamIds.filter((teamId) => Boolean(gamesByTeam[teamId]));
+const rankingTeamRecordIds = rankingTeamRecords.filter((teamRecord) => {
+  const teamId = teamRecord.getCellValueAsString('team_id');
+  return gameTeamIds.includes(teamId);
+}).map((teamRecord) => {
+  const teamId = teamRecord.getCellValueAsString('team_id');
+  return {
+    recordId: teamRecord.id,
+    teamId,
+  }
+});
+
+console.log({
+  rankingTeamRecordIds
+})
+
+const dataByRankingTeam = rankingTeamRecordIds.reduce((acc, { recordId, teamId }) => {
+  const games = gamesByTeam[teamId];
+  const getPoolRanking = rankingTeamRecords.filter((teamRecord) => {
+    const category = teamRecord.getCellValueAsString('category_link');
+    const pool = teamRecord.getCellValueAsString('pool');
+    return teamRecord
+  })
+
+  const wins = games.reduce((acc, game) => {
+    const isWin = teamId === game.winner;
+    if (isWin) {
+      return acc + 1
+    }
+    return acc;
+  }, 0);
+
+
+  const draws = games.reduce((acc, game) => {
+    const isDraw = teamId !== game.looser && teamId !== game.winner;
+    if (isDraw) {
+      return acc + 1
+    }
+    return acc;
+  }, 0);
+
+  const losses = games.reduce((acc, game) => {
+    const isLoose = teamId === game.looser;
+    if (isLoose) {
+      return acc + 1
+    }
+    return acc;
+  }, 0);
+
+  const totalTriesScored = games.reduce((acc, game) => {
+    const triesScored = game.tries[teamId];
+    return acc + Number(triesScored)
+  }, 0);
+
+  const totalTriesTaken = games.reduce((acc, game) => {
+    const otherTeamId = game.homeTeam === teamId ? game.awayTeam : game.homeTeam;
+    const triesTaken = game.tries[otherTeamId];
+    return acc + Number(triesTaken)
+  }, 0);
+
+  const played = games.length;
+  const diff = totalTriesScored - totalTriesTaken;
+  
+  acc.push({
+    id: recordId,
+    fields: {
+      wins,
+      losses,
+      draws,
+      played,
+      total_tries_scored: totalTriesScored,
+      total_tries_taken: totalTriesTaken,
+      diff,
+    }
+  });
+  return acc;
+}, []);
+
+console.log({
+  dataByRankingTeam,
+})
+
+for (let i = 0; i < dataByRankingTeam.length; i += 50) {
+  await rankingTeamTable.updateRecordsAsync(dataByRankingTeam.slice(i, i + 50));
+}
+
+// Update ranking table with rank position for each team in each category and pool
+const rankingTable = base.getTable("ranking");
+const rankingRecordsResult = await rankingTable.selectRecordsAsync({fields: ['id', 'team_id', 'category_link', 'pool', 'rank', 'points']});
+const rankingRecords = rankingRecordsResult.records;
+
+const rankingByCategory = rankingRecords.reduce((acc, record) => {
+  const category = record.getCellValueAsString("category_link");
+  const pool = record.getCellValueAsString("pool");
+  const teamId = record.getCellValueAsString("team_id");
+  const rank = record.getCellValueAsString("rank");
+  const points = record.getCellValueAsString("points");
+
+  if (!acc[category]) {
+    acc[category] = {};
+  }
+
+  if (!acc[category][pool]) {
+    acc[category][pool] = [];
+  }
+
+  acc[category][pool].push({
+    teamId,
+    rank,
+    points,
+  });
+
+  return acc;
+}, {});
+
+const rankingByCategoryAndPool = Object.keys(rankingByCategory).reduce((acc, category) => {
+  const pools = rankingByCategory[category];
+  const poolsKeys = Object.keys(pools);
+  poolsKeys.forEach((pool) => {
+    const teams = pools[pool];
+    const sortedTeams = teams.sort((a, b) => {
+      return b.points - a.points;
+    });
+    sortedTeams.forEach((team, index) => {
+      team.rank = index + 1;
+    });
+  });
+
+  acc[category] = pools;
+  return acc;
+}, {});
+
+const rankingRecordsToUpdate = rankingRecords.reduce((acc, record) => {
+  const category = record.getCellValueAsString("category_link");
+  const pool = record.getCellValueAsString("pool");
+  const teamId = record.getCellValueAsString("team_id");
+  const rank = record.getCellValueAsString("rank");
+
+  const teamRank = rankingByCategoryAndPool[category][pool].find((team) => team.teamId === teamId);
+  if (teamRank.rank !== rank) {
+    acc.push({
+      id: record.id,
+      fields: {
+        rank: teamRank.rank,
+      }
+    });
+  }
+
+  return acc;
+}, []);
+
+console.log({
+  rankingRecordsToUpdate,
+})
+
+for (let i = 0; i < rankingRecordsToUpdate.length; i += 50) {
+  await rankingTable.updateRecordsAsync(rankingRecordsToUpdate.slice(i, i + 50));
+}
