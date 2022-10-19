@@ -167,7 +167,7 @@ const LandingPage = () => {
             <p className="text-base text-green-600 font-semibold tracking-wide uppercase">
               Partenaires
             </p>
-            <div className="mt-2 flex items-center justify-center space-x-8 md:justify-start lg:justify-center">
+            <div className="grid grid-cols-4 gap-4 mt-2">
               {data?.map((sponsor, index) => (
                 <a
                   key={index.toString()}
