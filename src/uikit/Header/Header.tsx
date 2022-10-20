@@ -37,7 +37,7 @@ const Header = () => {
   const currentDate = new Date().getTime();
   // Get 22 Oct 2022 - 13:00 (1pm) Paris time in milliseconds
   const startDate = new Date("2022-10-22T11:00:00").getTime();
-  const shouldShowDayPartSelector = !isStatsPage && currentDate < startDate;
+  const shouldShowDayPartSelector = !isStatsPage && currentDate > startDate;
   return (
     <>
       <div className="min-h-full">
