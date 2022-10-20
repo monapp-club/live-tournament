@@ -5,57 +5,89 @@ let categoriesTable = base.getTable("categories");
 
 // Get ranking records
 const rankingRecords = await rankingTable.selectRecordsAsync({
-  fields: ["team", "name", "category_link", "rank"],
+    fields: ['team', 'name', 'category_link', 'rank', 'points']
 });
 
 // Get categories records
 const categoriesRecords = await categoriesTable.selectRecordsAsync({
-  fields: ["name"],
+    fields: ['name']
 });
 
-const recordsToCreate = categoriesRecords.records.reduce((acc, category) => {
-  // Get teams associated to the category
-  const teams = rankingRecords.records.filter((r) => {
-    const categoryLink = r.getCellValueAsString("category_link");
-    return categoryLink === category.name;
-  });
-
-  // Build new pools from the ranking
-  const poolsByRanking = teams.reduce((acc, cur) => {
-    const rank = cur.getCellValueAsString("rank");
-    const teamRecordId = cur.getCellValue("team")[0].id;
-    if (acc?.[rank]) {
-      acc?.[rank]?.push({
-        ...cur,
-        teamRecordId,
-      });
-    } else {
-      acc[rank] = [
-        {
-          ...cur,
-          teamRecordId,
-        },
-      ];
-    }
-    return acc;
-  }, []);
-
-  poolsByRanking.forEach((rank, index) => {
-    rank.forEach(async (team, teamIndex) => {
-      acc.push({
-        fields: {
-          team: [{ id: team.teamRecordId }],
-          pool_pm: `Poule ${index}`,
-          rank: teamIndex + 1,
-        },
-      });
+const recordsToCreate = categoriesRecords.records.reduce((acc, category, categoryIndex) => {
+    // Get A & B teams associated to the category
+    const teams = rankingRecords.records.filter((r) => {
+        const categoryLink = r.getCellValueAsString('category_link');
+        return categoryLink === category.name && !['u12-c', 'u10-c'].includes(category.name)
     });
-  });
 
-  return acc;
+    // Get C teams associated to the category
+    const teamsC = rankingRecords.records.filter((r) => {
+        const categoryLink = r.getCellValueAsString('category_link');
+        return categoryLink === category.name && ['u12-c', 'u10-c'].includes(category.name)
+    }).sort((a, b) => a.getCellValue('rank') - b.getCellValue('rank'));
+
+    // Build new A & B pools from the ranking
+    const poolsByRanking = teams.reduce((acc, cur) => {
+        const rank = cur.getCellValueAsString('rank');
+        const teamRecordId = cur.getCellValue('team')[0].id;
+        if (acc?.[rank]) {
+            acc?.[rank]?.push({
+                ...cur,
+                teamRecordId
+            });
+        } else {
+            acc[rank] = [{
+                ...cur,
+                teamRecordId
+            }]
+        }
+        return acc;
+    }, []);
+
+    // Build new C pools from the ranking
+    const poolsByRankingC = teamsC.reduce((acc, cur) => {
+        const pool = teamsC.indexOf(cur) > 4 ? '2' : '1';
+        const teamRecordId = cur.getCellValue('team')[0].id;
+        if (acc?.[pool]) {
+            acc?.[pool]?.push({
+                ...cur,
+                teamRecordId
+            });
+        } else {
+            acc[pool] = [{
+                ...cur,
+                teamRecordId
+            }]
+        }
+        return acc;
+    }, []);
+
+    [poolsByRanking, poolsByRankingC].flat().forEach((rank, index) => {
+        rank.forEach(async (team, teamIndex) => {
+            acc.push({
+                fields: {
+                    team: [{ id: team.teamRecordId }],
+                    pool_pm: `Poule ${index + 1}`,
+                    rank: teamIndex + 1,
+                }
+            })
+        })
+    })
+
+    return acc;
 }, []);
 
-console.log(recordsToCreate);
-for (let i = 0; i < recordsToCreate.length; i += 50) {
-  await rankingPmTable.createRecordsAsync(recordsToCreate.slice(i, i + 50));
+
+// Get record ids
+const rankingPmRecords = await rankingPmTable.selectRecordsAsync();
+const rankingPmIdsToUpdate = rankingPmRecords.recordIds;
+
+const recordsToCreateWithIndex = recordsToCreate.map((record, index) => ({
+    ...record,
+    id: rankingPmIdsToUpdate[index],
+}))
+
+console.log(recordsToCreateWithIndex);
+for (let i = 0; i < recordsToCreateWithIndex.length; i += 50) {
+    await rankingPmTable.updateRecordsAsync(recordsToCreateWithIndex.slice(i, i + 50));
 }
