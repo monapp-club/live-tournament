@@ -48,16 +48,18 @@ const Header = () => {
                 <div className="flex h-16 justify-between">
                   <div className="flex">
                     <div className="flex flex-shrink-0 items-center">
-                      <img
-                        className="block h-10 w-auto lg:hidden"
-                        src="/logo512.png"
-                        alt="AS Soustons Rugby"
-                      />
-                      <img
-                        className="hidden h-10 w-auto lg:block"
-                        src="/logo512.png"
-                        alt="AS Soustons Rugby"
-                      />
+                      <Link to="/">
+                        <img
+                          className="block h-10 w-auto lg:hidden"
+                          src="/logo512.png"
+                          alt="AS Soustons Rugby"
+                        />
+                        <img
+                          className="hidden h-10 w-auto lg:block"
+                          src="/logo512.png"
+                          alt="AS Soustons Rugby"
+                        />
+                      </Link>
                     </div>
                     <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                       {routes.map((item) => (
