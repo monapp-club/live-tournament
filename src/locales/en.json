@@ -29,9 +29,9 @@
       "title": "Play Off",
       "url": "play-off"
     },
-    "clubs": {
-      "title": "Clubs",
-      "url": "clubs"
+    "stats": {
+      "title": "Stats",
+      "url": "stats"
     }
   },
   "games": {

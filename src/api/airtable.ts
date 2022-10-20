@@ -11,6 +11,8 @@ import {
   AirtableViewType,
   CategoryEnumType,
   CategoryFieldsType,
+  ChallengeFieldsType,
+  FieldsFieldsType,
   GameFieldsType,
   SponsorsFieldsType,
   TeamsFieldsType,
@@ -156,6 +158,57 @@ export const fetchSponsors = async (): Promise<
     >("sponsors", "list");
     if (data) {
       return data.map((sponsor) => sponsor.fields);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchChallengeRanking = async (): Promise<
+  ChallengeFieldsType[] | undefined
+> => {
+  try {
+    const data = await fetchAirtableRecords<
+      AirtableRecordType<ChallengeFieldsType>
+    >("challenge", "list");
+    if (data) {
+      return data.map((team) => team.fields);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFieldGames = async ({
+  field,
+  dayPart,
+}: {
+  field?: string;
+  dayPart: "am" | "pm";
+}): Promise<GameFieldsType[] | undefined> => {
+  try {
+    const data = await fetchAirtableRecords<AirtableRecordType<GameFieldsType>>(
+      dayPart === "am" ? "games" : "games_pm",
+      "list",
+      `{field_name}="${field}"`
+    );
+    if (data) {
+      return data.map((games) => games.fields);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFields = async (): Promise<
+  FieldsFieldsType[] | undefined
+> => {
+  try {
+    const data = await fetchAirtableRecords<
+      AirtableRecordType<FieldsFieldsType>
+    >("fields", "list");
+    if (data) {
+      return data.map((field) => field.fields);
     }
   } catch (error) {
     console.log(error);

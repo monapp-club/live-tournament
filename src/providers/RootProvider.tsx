@@ -1,11 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import {
-  fetchGamesByCategories,
-  fetchRankingByCategory,
-  fetchCategories,
-} from "../api/airtable";
-import { CategoryEnumType, CategoryFieldsType } from "../api/types";
+  useFetchCategories,
+  useFetchFields,
+  useFetchGameByCategoryByPool,
+  useFetchRankingByCategory,
+} from "../api/hooks";
+import {
+  CategoryEnumType,
+  CategoryFieldsType,
+  FieldsFieldsType,
+} from "../api/types";
 import { CategoryPoolRankingType, CategoryPoolGameType } from "../types";
 
 type RootContextType = {
@@ -15,6 +19,7 @@ type RootContextType = {
   games?: CategoryPoolGameType;
   categories?: CategoryFieldsType[];
   dayPart?: "am" | "pm";
+  fields?: FieldsFieldsType[];
   setSelectedCategory: (category: CategoryEnumType) => void;
   setSelectedPool: (pool?: string) => void;
   setDayPart: (dayPart: "am" | "pm") => void;
@@ -26,6 +31,7 @@ export const RootContext = createContext<RootContextType>({
   ranking: undefined,
   games: undefined,
   dayPart: "am",
+  fields: undefined,
   setSelectedCategory: (category: string) => {},
   setSelectedPool: (pool?: string) => {},
   setDayPart: (dayPart: "am" | "pm") => {},
@@ -37,15 +43,17 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
   const [selectedPool, setSelectedPool] = useState<string>();
   const [dayPart, setDayPart] = useState<"am" | "pm">("am");
 
-  const { data: categories } = useQuery(["categories"], fetchCategories);
-  const { data: ranking, refetch: refetchRanking } = useQuery(
-    ["rankingByCategories", selectedCategory],
-    () => fetchRankingByCategory(selectedCategory, dayPart)
-  );
-  const { data: games, refetch: refetchGames } = useQuery(
-    ["gameByCategories", selectedCategory, selectedPool],
-    () => fetchGamesByCategories(selectedCategory, dayPart)
-  );
+  const { data: categories } = useFetchCategories();
+  const { data: ranking, refetch: refetchRanking } = useFetchRankingByCategory({
+    selectedCategory,
+    dayPart,
+  });
+  const { data: games, refetch: refetchGames } = useFetchGameByCategoryByPool({
+    selectedCategory,
+    selectedPool,
+    dayPart,
+  });
+  const { data: fields } = useFetchFields();
 
   useEffect(() => {
     if (!selectedCategory && ranking) {
@@ -68,6 +76,7 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
         games,
         categories,
         dayPart,
+        fields,
         setSelectedCategory,
         setSelectedPool,
         setDayPart,

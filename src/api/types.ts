@@ -29,6 +29,11 @@ export type TeamsFieldsType = {
   club_logo_url: [string];
 };
 
+export type MainFieldEnumType =
+  | "Terrain Vergnaud"
+  | "Terrain Laudouar"
+  | "Terrain Hiquet";
+
 export type GameFieldsType = {
   pool: string;
   home_team: [string];
@@ -41,6 +46,7 @@ export type GameFieldsType = {
   status: "live" | "upcoming" | "done";
   half_time: "first" | "second";
   field_name: [string];
+  field_challenge: [string];
   home_team_name?: [string];
   home_team_logo?: [string];
   away_team_logo?: [string];
@@ -64,11 +70,27 @@ export type AirtableTableType =
   | "ranking"
   | "ranking_pm"
   | "games_pm"
-  | "sponsors";
+  | "sponsors"
+  | "challenge"
+  | "fields";
 export type AirtableViewType = "list";
 
 export type SponsorsFieldsType = {
   name: string;
   logo_url?: string;
   external_url?: string;
+};
+
+export type ChallengeFieldsType = {
+  id: string;
+  name: string;
+  club_logo_url?: [string];
+  total_tries: number;
+};
+
+export type FieldsFieldsType = {
+  id: string;
+  name: string;
+  challenge: string;
+  color: "Rouge" | "Bleu" | "Jaune" | "Blanc";
 };

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { getRoutes } from "../../config/router";
+import { getNavigationRoutes } from "../../config/router";
 import { Link } from "react-router-dom";
 import { classNames, isCurrentPath } from "../../utils";
 import { RootContext } from "../../providers/RootProvider";
@@ -10,22 +10,34 @@ import i18n from "../../i18n";
 import { CategoryEnumType } from "../../api/types";
 
 const Header = () => {
-  const routes = getRoutes();
+  const routes = getNavigationRoutes();
   const {
     selectedCategory,
     categories,
     ranking,
     selectedPool,
-    // dayPart,
+    dayPart,
     setSelectedCategory,
     setSelectedPool,
-    // setDayPart,
+    setDayPart,
   } = useContext(RootContext);
 
   const poolTabs =
     ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
 
   const isRankingPage = isCurrentPath("/ranking");
+  const isFieldPage = isCurrentPath("/fields");
+  const isStatsPage = isCurrentPath("/stats");
+
+  const shouldShowPoolSelector = !isRankingPage && !isFieldPage;
+  const shouldShowCategorySelector =
+    !isFieldPage && categories && categories?.length > 0;
+  // Check if current date is after 22 Oct 2022 - 13:00 (1pm) Paris time
+  // Get current date in milliseconds
+  const currentDate = new Date().getTime();
+  // Get 22 Oct 2022 - 13:00 (1pm) Paris time in milliseconds
+  const startDate = new Date("2022-10-22T11:00:00").getTime();
+  const shouldShowDayPartSelector = !isStatsPage && currentDate < startDate;
   return (
     <>
       <div className="min-h-full">
@@ -68,8 +80,7 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="flex flex-row items-center">
-                    {/* @TODO: To enable for the afternoon
-                    {categories && categories?.length > 0 && (
+                    {shouldShowDayPartSelector && (
                       <div className="pr-2">
                         <SelectDropdown
                           options={["am", "pm"].map((d) =>
@@ -94,8 +105,8 @@ const Header = () => {
                           direction="left"
                         />
                       </div>
-                    )} */}
-                    {categories && categories?.length > 0 && (
+                    )}
+                    {shouldShowCategorySelector && (
                       <div className="pr-2">
                         <SelectDropdown
                           options={categories.map((category) => category.name)}
@@ -110,7 +121,7 @@ const Header = () => {
                         />
                       </div>
                     )}
-                    {!isRankingPage && (
+                    {shouldShowPoolSelector && (
                       <div>
                         <SelectDropdown
                           options={[

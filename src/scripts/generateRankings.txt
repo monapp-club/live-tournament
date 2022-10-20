@@ -6,7 +6,7 @@ const rankingTeamIds = rankingTeamRecords.map((teamRecord) => teamRecord.getCell
 
 // Get games data by team
 const gamesTable = base.getTable("games");
-const gamesRecordsResult = await gamesTable.selectRecordsAsync({fields: ['status', 'home_team', 'away_team', 'home_tries', 'away_tries', 'winner', 'looser', 'category', 'pool']});
+const gamesRecordsResult = await gamesTable.selectRecordsAsync({fields: ['status', 'home_team', 'away_team', 'home_score', 'away_score', 'winner', 'looser', 'category', 'pool']});
 const gamesRecords = gamesRecordsResult.records;
 
 const gamesByTeam = gamesRecords.reduce((acc, record) => {
@@ -15,8 +15,8 @@ const gamesByTeam = gamesRecords.reduce((acc, record) => {
   const awayTeam = record.getCellValueAsString("away_team");
   const winner = record.getCellValueAsString("winner") || null;
   const looser = record.getCellValueAsString("looser") || null;
-  const homeTries = record.getCellValueAsString("home_tries") || null;
-  const awayTries = record.getCellValueAsString("away_tries") || null;
+  const homeTries = record.getCellValueAsString("home_score") || null;
+  const awayTries = record.getCellValueAsString("away_score") || null;
   const pool = record.getCellValueAsString("pool") || null;
   const category = record.getCellValueAsString("category") || null;
 

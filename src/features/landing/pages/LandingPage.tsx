@@ -2,17 +2,15 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { getRoutes } from "../../../config/router";
+import { getNavigationRoutes } from "../../../config/router";
 import { Link } from "react-router-dom";
 import { classNames, isCurrentPath } from "../../../utils";
 import config from "../landing.config";
-import { useQuery } from "@tanstack/react-query";
-import { fetchSponsors } from "../../../api/airtable";
+import { useFetchSponsors } from "../../../api/hooks";
 
 const LandingPage = () => {
-  const routes = getRoutes();
-
-  const { data } = useQuery(["sponsors"], fetchSponsors);
+  const routes = getNavigationRoutes();
+  const { data } = useFetchSponsors();
 
   return (
     <>
@@ -167,7 +165,7 @@ const LandingPage = () => {
             <p className="text-base text-green-600 font-semibold tracking-wide uppercase">
               Partenaires
             </p>
-            <div className="grid grid-cols-4 gap-4 mt-2">
+            <div className="grid grid-cols-4 md:grid-cols-8 gap-4 mt-2">
               {data?.map((sponsor, index) => (
                 <a
                   key={index.toString()}

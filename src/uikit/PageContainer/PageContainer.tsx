@@ -14,7 +14,7 @@ const PageContainer = ({
       <Header />
       <div className="py-6">
         <header>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 pb-4">
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-gray-900">
               {title}
             </h1>

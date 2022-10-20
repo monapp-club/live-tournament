@@ -30,7 +30,7 @@ const PoolGameList = ({ pools, selectedPool }: PoolGameListProps) => {
   return (
     <div
       className={classNames(
-        "mt-6 gap-y-10 gap-x-6 ",
+        "gap-y-10 gap-x-6 ",
         !poolSelected
           ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-2"
           : ""

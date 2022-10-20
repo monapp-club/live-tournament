@@ -10,7 +10,8 @@
         "dayPart": {
           "am": "Matin",
           "pm": "Après-midi"
-        }
+        },
+        "field": "Sélectionner un terrain"
       }
     },
     "ranking": {
@@ -29,9 +30,9 @@
       "title": "Phases finales",
       "url": "phases-finales"
     },
-    "clubs": {
-      "title": "Clubs",
-      "url": "clubs"
+    "stats": {
+      "title": "Statistiques",
+      "url": "stats"
     }
   },
   "games": {
