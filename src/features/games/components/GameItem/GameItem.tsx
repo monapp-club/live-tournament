@@ -77,9 +77,6 @@ const GameItem = ({ game }: GameItemProps) => {
           </span>
           {game.status === "live" && <Timer dateTime={game.date} />}
         </div>
-        {game.status === "live" && (
-          <p>{t(`games:half_time:${game.half_time}`)}</p>
-        )}
         {game.status === "upcoming" && (
           <p>{dayjs(game.date).format("ddd DD MMM HH:mm")}</p>
         )}
