@@ -29,9 +29,9 @@ const Header = () => {
   const isFieldPage = isCurrentPath("/fields");
   const isStatsPage = isCurrentPath("/stats");
 
-  const shouldShowPoolSelector = !isRankingPage && !isFieldPage;
+  const shouldShowPoolSelector = !isStatsPage && !isRankingPage && !isFieldPage;
   const shouldShowCategorySelector =
-    !isFieldPage && categories && categories?.length > 0;
+    !isStatsPage && !isFieldPage && categories && categories?.length > 0;
   // Check if current date is after 22 Oct 2022 - 13:00 (1pm) Paris time
   // Get current date in milliseconds
   const currentDate = new Date().getTime();
