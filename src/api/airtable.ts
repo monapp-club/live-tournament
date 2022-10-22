@@ -135,7 +135,14 @@ export const fetchGamesByCategories = async (
         const poolsArray: PoolGamesType[] = Object.keys(pools).map((pool) => ({
           id: pool,
           name: pool,
-          games: pools[pool].map((game) => game.fields),
+          games: pools[pool]
+            .map((game) => game.fields)
+            .sort((a, b) => {
+              // sort by date
+              const dateA = new Date(a.date);
+              const dateB = new Date(b.date);
+              return dateA.getTime() - dateB.getTime();
+            }),
         }));
         return {
           ...acc,
