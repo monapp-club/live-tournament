@@ -30,7 +30,7 @@ export const RootContext = createContext<RootContextType>({
   selectedPool: undefined,
   ranking: undefined,
   games: undefined,
-  dayPart: "am",
+  dayPart: "pm",
   fields: undefined,
   setSelectedCategory: (category: string) => {},
   setSelectedPool: (pool?: string) => {},
