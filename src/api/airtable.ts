@@ -133,9 +133,7 @@ export const fetchGamesByCategories = async (
       const poolsByCategories = Object.keys(
         categories
       ).reduce<CategoryPoolGameType>((acc, category) => {
-        const pools = groupBy(categories[category], (game) =>
-          dayPart === "am" ? game.fields.pool : game.fields.pool_pm
-        );
+        const pools = groupBy(categories[category], (game) => game.fields.pool);
         const poolsArray: PoolGamesType[] = Object.keys(pools).map((pool) => ({
           id: pool,
           name: pool,
