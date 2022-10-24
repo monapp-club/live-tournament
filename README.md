@@ -1,6 +1,10 @@
 # Live sport tournament
 
-This project has been build to manage easily any sport tournament.
+This project has been build to manage easily **any sport tournament**.
+
+<a href="https://app.netlify.com/start/deploy?repository=https://github.com/monapp-club/live-tournament">
+<img src="https://www.netlify.com/img/deploy/button.svg" />
+</a>
 
 ## Database support
 
