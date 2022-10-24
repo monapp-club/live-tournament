@@ -78,7 +78,7 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                         {data.map(({ value }) => (
                           <td className="whitespace-nowrap px-3 py-4 text-sm">
                             <p className="text-xl font-semibold text-gray-500">
-                              {value}
+                              {value || "0"}
                             </p>
                           </td>
                         ))}

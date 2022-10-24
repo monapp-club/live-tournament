@@ -16,6 +16,7 @@ export type TeamsFieldsType = {
   name: string;
   rank: number;
   pool: string;
+  pool_pm: string;
   points: number;
   wins: number;
   draws: number;
@@ -36,6 +37,7 @@ export type MainFieldEnumType =
 
 export type GameFieldsType = {
   pool: string;
+  pool_pm: string;
   home_team: [string];
   date: string;
   started_at: string;

@@ -96,7 +96,9 @@ export const fetchRankingByCategory = async (
       const poolsByCategories = Object.keys(
         categories
       ).reduce<CategoryPoolRankingType>((acc, category) => {
-        const pools = groupBy(categories[category], (team) => team.fields.pool);
+        const pools = groupBy(categories[category], (team) =>
+          dayPart === "am" ? team.fields.pool : team.fields.pool_pm
+        );
         const poolsArray: PoolRankingType[] = Object.keys(pools).map(
           (pool) => ({
             id: pool,
@@ -135,7 +137,14 @@ export const fetchGamesByCategories = async (
         const poolsArray: PoolGamesType[] = Object.keys(pools).map((pool) => ({
           id: pool,
           name: pool,
-          games: pools[pool].map((game) => game.fields),
+          games: pools[pool]
+            .map((game) => game.fields)
+            .sort((a, b) => {
+              // sort by date
+              const dateA = new Date(a.date);
+              const dateB = new Date(b.date);
+              return dateA.getTime() - dateB.getTime();
+            }),
         }));
         return {
           ...acc,
