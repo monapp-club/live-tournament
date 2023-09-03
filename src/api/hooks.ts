@@ -11,8 +11,10 @@ import {
 import { CategoryEnumType } from "./types";
 
 export const useFetchSponsors = () => useQuery(["sponsors"], fetchSponsors);
+
 export const useFetchCategories = () =>
   useQuery(["categories"], fetchCategories);
+
 export const useFetchRankingByCategory = ({
   selectedCategory,
   dayPart,
@@ -20,9 +22,10 @@ export const useFetchRankingByCategory = ({
   selectedCategory: CategoryEnumType;
   dayPart: "am" | "pm";
 }) =>
-  useQuery(["rankingByCategories", selectedCategory, dayPart], () =>
+  useQuery(["ranking-by-categories", selectedCategory, dayPart], () =>
     fetchRankingByCategory(selectedCategory, dayPart)
   );
+
 export const useFetchGameByCategoryByPool = ({
   selectedCategory,
   selectedPool,
@@ -32,12 +35,13 @@ export const useFetchGameByCategoryByPool = ({
   selectedPool?: string;
   dayPart: "am" | "pm";
 }) =>
-  useQuery(["gameByCategories", selectedCategory, selectedPool, dayPart], () =>
-    fetchGamesByCategories(selectedCategory, dayPart)
+  useQuery(
+    ["game-by-categories", selectedCategory, selectedPool, dayPart],
+    () => fetchGamesByCategories(selectedCategory, dayPart)
   );
 
 export const useFetchChallengeRanking = () =>
-  useQuery(["challengeRanking"], fetchChallengeRanking);
+  useQuery(["challenge-ranking"], fetchChallengeRanking);
 
 export const useFetchFields = () => useQuery(["fields"], fetchFields);
 
@@ -48,6 +52,6 @@ export const useFetchFieldGames = ({
   field?: string;
   dayPart?: "am" | "pm";
 }) =>
-  useQuery(["fieldGames", { field, dayPart }], () =>
+  useQuery(["field-games", { field, dayPart }], () =>
     fetchFieldGames({ field, dayPart })
   );

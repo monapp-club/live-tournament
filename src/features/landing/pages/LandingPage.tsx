@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, LinkIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getNavigationRoutes } from "../../../config/router";
 import { Link } from "react-router-dom";
 import { classNames, isCurrentPath } from "../../../utils";
@@ -147,6 +147,20 @@ const LandingPage = () => {
                       {config.secondaryButton.label}
                     </a>
                   </div>
+                </div>
+                <div className="flex text-sm pt-3">
+                  <a
+                    href={config.altLink.link}
+                    target="_blank"
+                    className="group inline-flex items-center font-medium text-indigo-600 hover:text-indigo-900"
+                    rel="noreferrer"
+                  >
+                    <LinkIcon
+                      className="h-5 w-5 text-indigo-500 group-hover:text-indigo-900"
+                      aria-hidden="true"
+                    />
+                    <span className="ml-2">{config.altLink.label}</span>
+                  </a>
                 </div>
               </div>
             </main>
