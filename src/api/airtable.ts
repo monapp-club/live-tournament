@@ -12,6 +12,7 @@ import {
   CategoryEnumType,
   CategoryFieldsType,
   ChallengeFieldsType,
+  FeatureFlagsFieldsType,
   FieldsFieldsType,
   GameFieldsType,
   SponsorsFieldsType,
@@ -219,6 +220,23 @@ export const fetchFields = async (): Promise<
     if (data) {
       return data.map((field) => field.fields);
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFeatureFlags = async () => {
+  try {
+    const records = await fetchAirtableRecords<
+      AirtableRecordType<FeatureFlagsFieldsType>
+    >("feature_flags", "list");
+    const recordFields = records?.map((record) => record.fields);
+    return recordFields?.reduce((acc, flag) => {
+      return {
+        ...acc,
+        [flag.id]: flag?.is_enabled ?? false,
+      };
+    }, {});
   } catch (error) {
     console.log(error);
   }

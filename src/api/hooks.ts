@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   fetchCategories,
   fetchChallengeRanking,
+  fetchFeatureFlags,
   fetchFieldGames,
   fetchFields,
   fetchGamesByCategories,
@@ -55,3 +56,6 @@ export const useFetchFieldGames = ({
   useQuery(["field-games", { field, dayPart }], () =>
     fetchFieldGames({ field, dayPart })
   );
+
+export const useFetchFeatureFlags = () =>
+  useQuery(["feature-flags"], fetchFeatureFlags);

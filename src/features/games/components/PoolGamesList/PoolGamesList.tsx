@@ -9,10 +9,6 @@ interface PoolGameListProps {
 }
 
 const PoolGameList = ({ pools, selectedPool }: PoolGameListProps) => {
-  console.log({
-    pools,
-    selectedPool,
-  });
   const poolSelected = pools?.find((pool) => pool.name === selectedPool);
   const renderPool = (pool: PoolGamesType) => {
     if (!pool) {

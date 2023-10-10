@@ -17,6 +17,7 @@ const Header = () => {
     ranking,
     selectedPool,
     dayPart,
+    featureFlags,
     setSelectedCategory,
     setSelectedPool,
     setDayPart,
@@ -32,12 +33,8 @@ const Header = () => {
   const shouldShowPoolSelector = !isStatsPage && !isRankingPage && !isFieldPage;
   const shouldShowCategorySelector =
     !isStatsPage && !isFieldPage && categories && categories?.length > 0;
-  // Check if current date is after 22 Oct 2022 - 13:00 (1pm) Paris time
-  // Get current date in milliseconds
-  const currentDate = new Date().getTime();
-  // Get 22 Oct 2022 - 13:00 (1pm) Paris time in milliseconds
-  const startDate = new Date("2022-10-22T11:00:00").getTime();
-  const shouldShowDayPartSelector = !isStatsPage && currentDate > startDate;
+  const shouldShowDayPartSelector =
+    !isStatsPage && featureFlags?.enable_period_selector;
   return (
     <>
       <div className="min-h-full">

@@ -74,7 +74,8 @@ export type AirtableTableType =
   | "games_pm"
   | "sponsors"
   | "challenge"
-  | "fields";
+  | "fields"
+  | "feature_flags";
 export type AirtableViewType = "list";
 
 export type SponsorsFieldsType = {
@@ -95,4 +96,10 @@ export type FieldsFieldsType = {
   name: string;
   challenge: string;
   color: "Rouge" | "Bleu" | "Jaune" | "Blanc";
+};
+
+export type FeatureFlagsFieldsType = {
+  id: string;
+  notes: string;
+  is_enabled: boolean;
 };
