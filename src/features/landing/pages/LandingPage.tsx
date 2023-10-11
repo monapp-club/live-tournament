@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { Bars3Icon, LinkIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getNavigationRoutes } from "../../../config/router";
@@ -8,10 +8,34 @@ import { classNames, isCurrentPath } from "../../../utils";
 import config from "../landing.config";
 import { useFetchSponsors } from "../../../api/hooks";
 import SponsorsBar from "../components/SponsorsBar";
+import { useAptabase } from "@aptabase/react";
 
 const LandingPage = () => {
   const routes = getNavigationRoutes();
   const { data } = useFetchSponsors();
+  const { trackEvent } = useAptabase();
+
+  useEffect(() => {
+    trackEvent("page_view", { screenName: "landing_page" });
+  }, [trackEvent]);
+
+  const onClickLive = () => {
+    trackEvent("click", { screenName: "landing_page", buttonName: "live" });
+  };
+
+  const onClickDiscover = () => {
+    trackEvent("click", {
+      screenName: "landing_page",
+      buttonName: "discover",
+    });
+  };
+
+  const onClickPreviousEdition = () => {
+    trackEvent("click", {
+      screenName: "landing_page",
+      buttonName: "previous_edition",
+    });
+  };
 
   return (
     <>
@@ -133,6 +157,7 @@ const LandingPage = () => {
                     <Link
                       to={config.mainButton.link}
                       className="flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium md:py-4 md:px-10 md:text-lg bg-blue-600 text-white hover:bg-blue-700"
+                      onClick={onClickLive}
                     >
                       {config.mainButton.label}
                     </Link>
@@ -143,6 +168,7 @@ const LandingPage = () => {
                       target="_blank"
                       rel="noreferrer"
                       className="flex w-full items-center justify-center rounded-md border border-transparent px-8 py-3 text-base font-medium md:py-4 md:px-10 md:text-lg bg-blue-100 text-blue-700 hover:bg-blue-200"
+                      onClick={onClickDiscover}
                     >
                       {config.secondaryButton.label}
                     </a>
@@ -154,6 +180,7 @@ const LandingPage = () => {
                     target="_blank"
                     className="group inline-flex items-center font-medium text-indigo-600 hover:text-indigo-900"
                     rel="noreferrer"
+                    onClick={onClickPreviousEdition}
                   >
                     <LinkIcon
                       className="h-5 w-5 text-indigo-500 group-hover:text-indigo-900"

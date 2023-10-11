@@ -8,6 +8,7 @@ import { RootContext } from "../../providers/RootProvider";
 import SelectDropdown from "../SelectDropdown/SelectDropdown";
 import i18n from "../../i18n";
 import { CategoryEnumType } from "../../api/types";
+import { useAptabase } from "@aptabase/react";
 
 const Header = () => {
   const routes = getNavigationRoutes();
@@ -22,6 +23,7 @@ const Header = () => {
     setSelectedPool,
     setDayPart,
   } = useContext(RootContext);
+  const { trackEvent } = useAptabase();
 
   const poolTabs =
     ranking?.[selectedCategory as CategoryEnumType]?.map((p) => p.name) || [];
@@ -35,6 +37,27 @@ const Header = () => {
     !isStatsPage && !isFieldPage && categories && categories?.length > 0;
   const shouldShowDayPartSelector =
     !isStatsPage && featureFlags?.enable_period_selector;
+
+  const onSelectCategory = (value: string) => {
+    setSelectedCategory(value as CategoryEnumType);
+    trackEvent("select_category", { category: value });
+  };
+
+  const onSelectPool = (value: string) => {
+    setSelectedPool(value);
+    trackEvent("select_pool", { pool: value });
+  };
+
+  const onSelectDayPart = (value: string) => {
+    if (value === i18n.t("navigation:header:selector:dayPart:am")) {
+      setDayPart("am");
+      trackEvent("select_day_part", { dayPart: "am" });
+    } else {
+      setDayPart("pm");
+      trackEvent("select_day_part", { dayPart: "pm" });
+    }
+  };
+
   return (
     <>
       <div className="min-h-full">
@@ -85,16 +108,7 @@ const Header = () => {
                           options={["am", "pm"].map((d) =>
                             i18n.t(`navigation:header:selector:dayPart:${d}`)
                           )}
-                          onSelect={(value) => {
-                            if (
-                              value ===
-                              i18n.t("navigation:header:selector:dayPart:am")
-                            ) {
-                              setDayPart("am");
-                            } else {
-                              setDayPart("pm");
-                            }
-                          }}
+                          onSelect={onSelectDayPart}
                           selected={i18n.t(
                             `navigation:header:selector:dayPart:${dayPart}`
                           )}
@@ -109,9 +123,7 @@ const Header = () => {
                       <div className="pr-2">
                         <SelectDropdown
                           options={categories.map((category) => category.name)}
-                          onSelect={(value) =>
-                            setSelectedCategory(value as CategoryEnumType)
-                          }
+                          onSelect={onSelectCategory}
                           selected={selectedCategory}
                           placeholder={i18n.t(
                             "navigation:header:selector:category"
@@ -127,7 +139,7 @@ const Header = () => {
                             i18n.t("navigation:header:selector:pool"),
                             ...poolTabs,
                           ]}
-                          onSelect={setSelectedPool}
+                          onSelect={onSelectPool}
                           selected={selectedPool}
                           placeholder={i18n.t(
                             "navigation:header:selector:pool"

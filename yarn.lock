@@ -24,6 +24,18 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
+"@aptabase/react@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@aptabase/react/-/react-0.1.2.tgz#d0ff346bdae3879ca127af519d5c1dc807a87301"
+  integrity sha512-ecZIVCsO9URU25Rz+VxpZ9Y7B5Hux7nslefhjo+4ljC1mKA71yjjIPclzmeHYbojUnp0A+s20YU2EzybmszsvA==
+  dependencies:
+    "@aptabase/web" "0.2.0"
+
+"@aptabase/web@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@aptabase/web/-/web-0.2.0.tgz#c7feaae56947446f52995f6454d446493b619c2a"
+  integrity sha512-Ju9JeP3zfFv7TbYzZ/Nj1BfEknzZ8a3AtpKq78HI2nNqOalBIqyaDlluPt3mwhzij7hvZbZHW1ZpO0a8sKR7Yg==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.0", "@babel/code-frame@^7.18.6", "@babel/code-frame@^7.8.3":
   version "7.18.6"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.18.6.tgz#3b25d38c89600baa2dcc219edfa88a74eb2c427a"

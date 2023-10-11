@@ -1,3 +1,4 @@
+import { useAptabase } from "@aptabase/react";
 import { SponsorsFieldsType } from "../../../api/types";
 
 interface SponsorsBarProps {
@@ -5,6 +6,12 @@ interface SponsorsBarProps {
 }
 
 const SponsorsBar = ({ sponsors }: SponsorsBarProps) => {
+  const { trackEvent } = useAptabase();
+
+  const onClickPartner = (partner: string) => {
+    trackEvent("click", { screenName: "landing_page", partner });
+  };
+
   return (
     <div className="bg-indigo-50">
       <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -19,6 +26,7 @@ const SponsorsBar = ({ sponsors }: SponsorsBarProps) => {
                 href={sponsor.external_url}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => onClickPartner(sponsor.name)}
               >
                 <img
                   className="h-20 w-auto"

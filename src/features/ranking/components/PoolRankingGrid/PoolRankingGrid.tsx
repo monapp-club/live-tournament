@@ -7,6 +7,7 @@ interface PoolRankingGridProps {
 }
 
 const PoolRankingGrid = ({ pools }: PoolRankingGridProps) => {
+  console.log("pools", pools);
   return (
     <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-2 xl:gap-x-2">
       {pools?.map((pool) => (
