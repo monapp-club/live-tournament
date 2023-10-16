@@ -5,7 +5,7 @@ let categoriesTable = base.getTable("categories");
 
 // Get ranking records
 const rankingRecords = await rankingTable.selectRecordsAsync({
-    fields: ['team', 'name', 'category_link', 'rank', 'points']
+    fields: ['team', 'name', 'category_id', 'count', 'points']
 });
 
 // Get categories records
@@ -16,27 +16,27 @@ const categoriesRecords = await categoriesTable.selectRecordsAsync({
 const recordsToCreate = categoriesRecords.records.reduce((acc, category, categoryIndex) => {
     // Get A & B teams associated to the category
     const teams = rankingRecords.records.filter((r) => {
-        const categoryLink = r.getCellValueAsString('category_link');
+        const categoryLink = r.getCellValueAsString('category_id');
         return categoryLink === category.name && !['u12-c', 'u10-c'].includes(category.name)
     });
 
     // Get C teams associated to the category
     const teamsC = rankingRecords.records.filter((r) => {
-        const categoryLink = r.getCellValueAsString('category_link');
+        const categoryLink = r.getCellValueAsString('category_id');
         return categoryLink === category.name && ['u12-c', 'u10-c'].includes(category.name)
-    }).sort((a, b) => a.getCellValue('rank') - b.getCellValue('rank'));
+    }).sort((a, b) => a.getCellValue('points') - b.getCellValue('points'));
 
     // Build new A & B pools from the ranking
     const poolsByRanking = teams.reduce((acc, cur) => {
-        const rank = cur.getCellValueAsString('rank');
+        const count = cur.getCellValueAsString('count');
         const teamRecordId = cur.getCellValue('team')[0].id;
-        if (acc?.[rank]) {
-            acc?.[rank]?.push({
+        if (acc?.[count]) {
+            acc?.[count]?.push({
                 ...cur,
                 teamRecordId
             });
         } else {
-            acc[rank] = [{
+            acc[count] = [{
                 ...cur,
                 teamRecordId
             }]
@@ -67,8 +67,8 @@ const recordsToCreate = categoriesRecords.records.reduce((acc, category, categor
             acc.push({
                 fields: {
                     team: [{ id: team.teamRecordId }],
-                    pool_pm: `Poule ${index + 1}`,
-                    rank: teamIndex + 1,
+                    pool: { name: `Poule ${index + 1}`},
+                    count: teamIndex + 1,
                 }
             })
         })
