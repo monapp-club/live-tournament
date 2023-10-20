@@ -6,7 +6,6 @@ import { RootContext } from "../../../providers/RootProvider";
 import PageContainer from "../../../uikit/PageContainer/PageContainer";
 import SelectDropdown from "../../../uikit/SelectDropdown/SelectDropdown";
 import FieldGames from "../components/FieldGames";
-import { getFields } from "../fields.config";
 import { useAptabase } from "@aptabase/react";
 
 const FieldsPage = () => {
