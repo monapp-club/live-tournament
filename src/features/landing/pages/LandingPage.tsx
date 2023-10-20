@@ -196,7 +196,7 @@ const LandingPage = () => {
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
           <img
             className="h-56 w-full object-cover sm:h-72 md:h-96 lg:h-full lg:w-full"
-            src="https://api.club.ffr.fr/assoustons/wp-content/uploads/sites/1179/2021/10/p33_edr-bas-droite-1024x683.jpg"
+            src="/assets/landing-page-hero.jpg"
             alt=""
           />
         </div>

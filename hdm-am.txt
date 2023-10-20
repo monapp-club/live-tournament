@@ -55,5 +55,5 @@ tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Blanc&filter_pool=Poule+4
 Title U12 C | Poule 1 | Terrain Laudouar Rouge
 tinyurl.com/edr-hdm?filter_field_name=Terrain+Laudouar+Rouge&filter_pool=Poule+1
 
-U12 C | Poule 2 | Terrain Laudouar Rouge
+Title U12 C | Poule 2 | Terrain Laudouar Rouge
 tinyurl.com/edr-hdm?filter_field_name=Terrain+Laudouar+Rouge&filter_pool=Poule+2

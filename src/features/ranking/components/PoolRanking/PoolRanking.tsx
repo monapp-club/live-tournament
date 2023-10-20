@@ -61,7 +61,7 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                             <div className="h-10 w-10 flex-shrink-0">
                               <img
                                 className="h-10 w-10 rounded object-contain"
-                                src={ranking.club_logo_url?.[0]}
+                                src={ranking.club_logo?.[0]?.url}
                                 alt=""
                               />
                             </div>

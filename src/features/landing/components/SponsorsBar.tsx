@@ -29,8 +29,8 @@ const SponsorsBar = ({ sponsors }: SponsorsBarProps) => {
                 onClick={() => onClickPartner(sponsor.name)}
               >
                 <img
-                  className="h-20 w-auto"
-                  src={sponsor.logo_url}
+                  className="h-20 w-20 object-contain bg-white"
+                  src={sponsor.logo?.[0]?.url}
                   alt={sponsor.name}
                 />
               </a>

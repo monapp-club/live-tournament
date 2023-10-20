@@ -14,8 +14,7 @@ const FieldsPage = () => {
   const [selectedField, setSelectedField] = useState<string | undefined>(
     fields?.[0].name
   );
-  const fieldsConfig = getFields();
-  const selectedImage = fieldsConfig?.find((field) =>
+  const selectedImage = fields?.find((field) =>
     selectedField?.includes(field.name)
   );
   const selectedChallenge = fields?.find(
@@ -67,7 +66,7 @@ const FieldsPage = () => {
       <div className="pt-5 lg:grid lg:grid-cols-2 lg:gap-4">
         <div className="col-span-1">
           <img
-            src={selectedImage?.image}
+            src={selectedImage?.image?.[0]?.url}
             alt={selectedImage?.name}
             className="w-full"
           />
