@@ -30,7 +30,6 @@ const getRequest = (
   filterByFormula?: string
 ) => {
   const params = new URLSearchParams({
-    api_key: config.apiKey ?? "",
     maxRecords: config.maxRecords ?? "",
     view,
     ...(filterByFormula && { filterByFormula }),
