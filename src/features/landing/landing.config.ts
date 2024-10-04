@@ -6,7 +6,7 @@ const config = {
     altName: "AS Soustons Rugby",
     src: "/logo512.png",
   },
-  body: "Bienvenue à tous sur notre application spécialement développée pour l'occasion. Nous sommes très heureux de vous accueillir pour cette nouvelle édition du Tournoi de Soustons 2023 placé sous le signe du rugby et de l'amitié. Bon tournoi à tous !",
+  body: "Bienvenue à tous sur notre application spécialement développée pour l'occasion. Nous sommes très heureux de vous accueillir pour cette nouvelle édition du Tournoi de Soustons 2024 placé sous le signe du rugby et de l'amitié. Bon tournoi à tous !",
   mainButton: {
     label: "Voir le live",
     link: "/games",

@@ -14,7 +14,7 @@ This project has been build to manage easily **any sport tournament**.
 ## Real use-cases
 
 - [Tournoi de Soustons 2022]("https://tournoi-edr-soustons-rugby-2022.netlify.app/")
-- [Tournoi de Soustons 2023]("https://tournoi-edr-soustons-rugby-2023.netlify.app/")
+- [Tournoi de Soustons 2024]("https://tournoi-edr-soustons-rugby-2024.netlify.app/")
 
 ## Available Scripts
 
