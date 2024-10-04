@@ -19,7 +19,7 @@ const SponsorsBar = ({ sponsors }: SponsorsBarProps) => {
           <p className="text-base text-green-600 font-semibold tracking-wide uppercase">
             Partenaires
           </p>
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-4 mt-2">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mt-2 items-center">
             {sponsors?.map((sponsor, index) => (
               <a
                 key={index.toString()}
