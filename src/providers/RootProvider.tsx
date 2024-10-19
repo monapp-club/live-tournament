@@ -50,7 +50,7 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryEnumType>("U12 - A");
   const [selectedPool, setSelectedPool] = useState<string>();
-  const [dayPart, setDayPart] = useState<"am" | "pm">("am");
+  const [dayPart, setDayPart] = useState<"am" | "pm">("pm");
 
   const { data: categories } = useFetchCategories();
   const { data: ranking, refetch: refetchRanking } = useFetchRankingByCategory({

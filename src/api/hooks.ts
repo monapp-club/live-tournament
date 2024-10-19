@@ -53,8 +53,12 @@ export const useFetchFieldGames = ({
   field?: string;
   dayPart?: "am" | "pm";
 }) =>
-  useQuery(["field-games", { field, dayPart }], () =>
-    fetchFieldGames({ field, dayPart })
+  useQuery(
+    ["field-games", { field, dayPart }],
+    () => fetchFieldGames({ field, dayPart }),
+    {
+      staleTime: 30 * 1000,
+    }
   );
 
 export const useFetchFeatureFlags = () =>
