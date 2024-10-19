@@ -27,7 +27,7 @@ export type TeamsFieldsType = {
   diff: number;
   category: CategoryEnumType;
   club_name: [string];
-  club_logo_url: [string];
+  club_logo: { url: string }[];
 };
 
 export type MainFieldEnumType =
@@ -50,8 +50,8 @@ export type GameFieldsType = {
   field_name: [string];
   field_challenge: [string];
   home_team_name?: [string];
-  home_team_logo?: [string];
-  away_team_logo?: [string];
+  home_club_logo?: { url: string }[];
+  away_club_logo?: { url: string }[];
   away_team_name?: [string];
 };
 
@@ -74,20 +74,21 @@ export type AirtableTableType =
   | "games_pm"
   | "sponsors"
   | "challenge"
-  | "fields";
+  | "fields"
+  | "feature_flags";
 export type AirtableViewType = "list";
 
 export type SponsorsFieldsType = {
   name: string;
-  logo_url?: string;
   external_url?: string;
+  logo?: { url: string }[];
 };
 
 export type ChallengeFieldsType = {
   id: string;
   name: string;
-  club_logo_url?: [string];
   total_tries: number;
+  club_logo: { url: string }[];
 };
 
 export type FieldsFieldsType = {
@@ -95,4 +96,11 @@ export type FieldsFieldsType = {
   name: string;
   challenge: string;
   color: "Rouge" | "Bleu" | "Jaune" | "Blanc";
+  image: { url: string }[];
+};
+
+export type FeatureFlagsFieldsType = {
+  id: string;
+  notes: string;
+  is_enabled: boolean;
 };

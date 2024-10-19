@@ -45,14 +45,14 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
-                  {pool.ranking.map((ranking) => {
+                  {pool.ranking.map((ranking, index) => {
                     const data = getDataRankingConfig(ranking);
                     return (
                       <tr key={ranking.id}>
                         {/* Position */}
                         <td className="whitespace-nowrap py-4">
                           <p className="text-blue-800 text-center text-2xl font-semibold">
-                            {ranking.rank}
+                            {ranking.rank || index + 1}
                           </p>
                         </td>
                         {/* Équipe */}
@@ -61,7 +61,7 @@ const PoolRanking = ({ pool }: PoolRankingProps) => {
                             <div className="h-10 w-10 flex-shrink-0">
                               <img
                                 className="h-10 w-10 rounded object-contain"
-                                src={ranking.club_logo_url[0]}
+                                src={ranking.club_logo?.[0]?.url}
                                 alt=""
                               />
                             </div>

@@ -1,0 +1,53 @@
+Title U12 A | Poule 1 | Terrain Vergnaud Rouge
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Rouge&filter_pool=Poule+1
+
+Title U12 A | Poule 2 | Terrain Vergnaud Rouge
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Rouge&filter_pool=Poule+2
+
+Title U12 A | Poule 3 | Terrain Vergnaud Bleu
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Bleu&filter_pool=Poule+3
+
+Title U12 A | Poule 4 | Terrain Vergnaud Bleu
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Bleu&filter_pool=Poule+4
+
+Title U12 B | Poule 1 | Terrain Vergnaud Jaune
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Jaune&filter_pool=Poule+1
+
+Title U12 B | Poule 2 | Terrain Vergnaud Jaune
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Jaune&filter_pool=Poule+2
+
+Title U12 B | Poule 3 | Terrain Vergnaud Blanc
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Blanc&filter_pool=Poule+3
+
+Title U12 B | Poule 4 | Terrain Vergnaud Blanc
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Vergnaud+Blanc&filter_pool=Poule+4
+
+Title U12 C | Poule 1 | Terrain Laudouar Rouge
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Laudouar+Rouge&filter_pool=Poule+1
+
+Title U10 A | Poule 1 | Terrain Hiquet Rouge
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Rouge&filter_pool=Poule+1
+
+Title U10 A | Poule 2 | Terrain Hiquet Rouge
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Rouge&filter_pool=Poule+2
+
+Title U10 A | Poule 3 | Terrain Hiquet Blanc
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Blanc&filter_pool=Poule+3
+
+Title U10 A | Poule 4 | Terrain Hiquet Blanc
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Blanc&filter_pool=Poule+4
+
+Title U10 B | Poule 1 | Terrain Hiquet Jaune
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Jaune&filter_pool=Poule+1
+
+Title U10 B | Poule 2 | Terrain Hiquet Jaune
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Jaune&filter_pool=Poule+2
+
+Title U10 B | Poule 3 | Terrain Hiquet Blanc
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Blanc&filter_pool=Poule+3
+
+Title U10 B | Poule 4 | Terrain Hiquet Blanc
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Hiquet+Blanc&filter_pool=Poule+4
+
+Title U10 C | Poule 1 | Terrain Laudouar Jaune
+https://tinyurl.com/edr-hdm?filter_field_name=Terrain+Laudouar+Jaune&filter_pool=Poule+1

@@ -6,15 +6,14 @@ import { RootContext } from "../../../providers/RootProvider";
 import PageContainer from "../../../uikit/PageContainer/PageContainer";
 import SelectDropdown from "../../../uikit/SelectDropdown/SelectDropdown";
 import FieldGames from "../components/FieldGames";
-import { getFields } from "../fields.config";
+import { useAptabase } from "@aptabase/react";
 
 const FieldsPage = () => {
   const { dayPart, fields } = useContext(RootContext);
   const [selectedField, setSelectedField] = useState<string | undefined>(
     fields?.[0].name
   );
-  const fieldsConfig = getFields();
-  const selectedImage = fieldsConfig?.find((field) =>
+  const selectedImage = fields?.find((field) =>
     selectedField?.includes(field.name)
   );
   const selectedChallenge = fields?.find(
@@ -25,6 +24,11 @@ const FieldsPage = () => {
     field: selectedField,
     dayPart,
   });
+  const { trackEvent } = useAptabase();
+
+  useEffect(() => {
+    trackEvent("page_view", { screenName: "fields_page" });
+  }, [trackEvent]);
 
   useEffect(() => {
     if (fields?.length && !selectedField) {
@@ -32,6 +36,11 @@ const FieldsPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields]);
+
+  const onSelectField = (value: string) => {
+    setSelectedField(value as MainFieldEnumType);
+    trackEvent("select_field", { field: value });
+  };
 
   return (
     <PageContainer title={i18n.t("navigation:fields:title")}>
@@ -45,7 +54,7 @@ const FieldsPage = () => {
         {fields && (
           <SelectDropdown
             options={fields?.map((field) => field.name)}
-            onSelect={(value) => setSelectedField(value as MainFieldEnumType)}
+            onSelect={onSelectField}
             selected={selectedField}
             placeholder={i18n.t("navigation:header:selector:field")}
             direction="left"
@@ -56,7 +65,7 @@ const FieldsPage = () => {
       <div className="pt-5 lg:grid lg:grid-cols-2 lg:gap-4">
         <div className="col-span-1">
           <img
-            src={selectedImage?.image}
+            src={selectedImage?.image?.[0]?.url}
             alt={selectedImage?.name}
             className="w-full"
           />

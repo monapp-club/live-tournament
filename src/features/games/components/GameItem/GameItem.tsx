@@ -31,12 +31,12 @@ const GameItem = ({ game }: GameItemProps) => {
           <div className="flex-shrink-0 md:flex md:flex-row">
             <img
               className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded object-contain pr-1"
-              src={game.home_team_logo?.[0]}
+              src={game.home_club_logo?.[0]?.url}
               alt=""
             />
             <img
               className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded object-contain"
-              src={game.away_team_logo?.[0]}
+              src={game.away_club_logo?.[0]?.url}
               alt=""
             />
           </div>

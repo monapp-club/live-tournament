@@ -49,7 +49,7 @@ const ChallengeRanking = ({ clubs }: ChallengeRankingProps) => {
                           <div className="h-10 w-10 flex-shrink-0">
                             <img
                               className="h-10 w-10 rounded object-contain"
-                              src={club.club_logo_url?.[0]}
+                              src={club.club_logo?.[0]?.url}
                               alt=""
                             />
                           </div>

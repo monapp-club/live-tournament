@@ -1,6 +1,13 @@
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   useFetchCategories,
+  useFetchFeatureFlags,
   useFetchFields,
   useFetchGameByCategoryByPool,
   useFetchRankingByCategory,
@@ -20,6 +27,7 @@ type RootContextType = {
   categories?: CategoryFieldsType[];
   dayPart?: "am" | "pm";
   fields?: FieldsFieldsType[];
+  featureFlags?: Record<string, boolean>;
   setSelectedCategory: (category: CategoryEnumType) => void;
   setSelectedPool: (pool?: string) => void;
   setDayPart: (dayPart: "am" | "pm") => void;
@@ -32,6 +40,7 @@ export const RootContext = createContext<RootContextType>({
   games: undefined,
   dayPart: "pm",
   fields: undefined,
+  featureFlags: undefined,
   setSelectedCategory: (category: string) => {},
   setSelectedPool: (pool?: string) => {},
   setDayPart: (dayPart: "am" | "pm") => {},
@@ -41,7 +50,7 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryEnumType>("U12 - A");
   const [selectedPool, setSelectedPool] = useState<string>();
-  const [dayPart, setDayPart] = useState<"am" | "pm">("am");
+  const [dayPart, setDayPart] = useState<"am" | "pm">("pm");
 
   const { data: categories } = useFetchCategories();
   const { data: ranking, refetch: refetchRanking } = useFetchRankingByCategory({
@@ -54,6 +63,7 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
     dayPart,
   });
   const { data: fields } = useFetchFields();
+  const { data: featureFlags } = useFetchFeatureFlags();
 
   useEffect(() => {
     if (!selectedCategory && ranking) {
@@ -67,22 +77,31 @@ export const RootProvider = ({ children }: PropsWithChildren) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dayPart]);
 
-  return (
-    <RootContext.Provider
-      value={{
-        selectedCategory,
-        selectedPool,
-        ranking,
-        games,
-        categories,
-        dayPart,
-        fields,
-        setSelectedCategory,
-        setSelectedPool,
-        setDayPart,
-      }}
-    >
-      {children}
-    </RootContext.Provider>
+  const value = useMemo(
+    () => ({
+      selectedCategory,
+      selectedPool,
+      ranking,
+      games,
+      categories,
+      dayPart,
+      fields,
+      featureFlags,
+      setSelectedCategory,
+      setSelectedPool,
+      setDayPart,
+    }),
+    [
+      selectedCategory,
+      selectedPool,
+      ranking,
+      games,
+      categories,
+      dayPart,
+      fields,
+      featureFlags,
+    ]
   );
+
+  return <RootContext.Provider value={value}>{children}</RootContext.Provider>;
 };
